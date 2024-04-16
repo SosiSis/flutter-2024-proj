@@ -3,12 +3,12 @@ import 'package:flutter_project/create_post_page.dart';
 
 import 'detailpage.dart';
 
-import 'package:flutter_project/presentation/screens/login.dart';
+import 'package:flutter_project/presentation/screens/noaccount.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: MyApp(),
-  ));
+  runApp(
+    const MaterialApp(home: NoAccount()),
+  );
 }
 
 class MyApp extends StatelessWidget {
