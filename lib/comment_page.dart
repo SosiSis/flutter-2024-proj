@@ -1,4 +1,3 @@
-import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 
 class CommentPage extends StatefulWidget {
@@ -7,7 +6,6 @@ class CommentPage extends StatefulWidget {
 }
 
 class _CommentPageState extends State<CommentPage> {
-  final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
   List<Map<String, String>> filedata = [
     {
@@ -71,22 +69,6 @@ class _CommentPageState extends State<CommentPage> {
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            if (commentFieldKey.currentState!.validate()) {
-              setState(() {
-                var value = {
-                  'name': 'New User',
-                  'message': commentTextFieldController.text,
-                };
-                filedata.insert(0, value);
-              });
-              commentTextFieldController.clear();
-              FocusScope.of(context).unfocus();
-            }
-          },
-          child: const Text('Add Comment'),
-        ),
       ],
     );
   }
@@ -99,35 +81,29 @@ class _CommentPageState extends State<CommentPage> {
         backgroundColor: Color.fromARGB(255, 34, 91, 213),
       ),
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: CommentBox(
-            child: commentChild(filedata),
-            labelText: 'Write a comment...',
-            errorText: 'Comment cannot be blank',
-            withBorder: false,
-            sendButtonMethod: () {
-              if (formKey.currentState!.validate()) {
-                setState(() {
-                  var value = {
-                    'name': 'New User',
-                    'message': commentController.text,
-                  };
-                  filedata.insert(0, value);
-                });
-                commentController.clear();
-                FocusScope.of(context).unfocus();
-              } else {
-                print("Not validated");
-              }
-            },
-            formKey: formKey,
-            commentController: commentController,
-            backgroundColor: Color.fromARGB(255, 59, 77, 154),
-            textColor: Colors.white,
-            sendWidget:
-                const Icon(Icons.send_sharp, size: 30, color: Colors.white),
-          ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: commentChild(filedata),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (commentFieldKey.currentState!.validate()) {
+                  setState(() {
+                    var value = {
+                      'name': 'New User',
+                      'message': commentTextFieldController.text,
+                    };
+                    filedata.insert(0, value);
+                  });
+                  commentTextFieldController.clear();
+                  FocusScope.of(context).unfocus();
+                }
+              },
+              child: const Text('Add Comment'),
+            ),
+          ],
         ),
       ),
     );
