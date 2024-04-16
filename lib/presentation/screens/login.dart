@@ -10,7 +10,7 @@ class LogInPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              child: Image.asset('assets/component.png',
+              child: Image.asset('Assets/component.png',
                   alignment: Alignment.center, fit: BoxFit.fill
 
                   // Set width to occupy full width
@@ -66,7 +66,7 @@ class LogInPage extends StatelessWidget {
                     ),
                   ],
                 )),
-            Container(child: Image.asset('assets/component1.png'))
+            Container(child: Image.asset('Assets/component1.png'))
           ],
         ),
       ),
