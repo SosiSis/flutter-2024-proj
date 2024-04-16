@@ -9,6 +9,7 @@ Admin account email sosinasisay30@gmail.com
 |2| Sosina Sisay| UGR/0131/14| 2|
 |3| Rediet Woudma | UGR/4779/14| 2|
 |4| Liya Daniel| UGR/5670/14| 2|
+
 # Description
 The Student Lost and Found Platform is an impactful solution inspired by instances of lost items encountered within educational environments, with a primary focus on catering to the needs of students. 
 This platform serves as a comprehensive system that enables users to effortlessly discover and manage lost items within their school or university environment.
@@ -21,13 +22,21 @@ Administrators enjoy a comprehensive set of CRUD features designed to efficientl
 - **User Registration**: Allow new users to sign up and create accounts.
 - **Role Assignment**: Assign specific roles to users, defining their access level and permissions within the system.
 - **Feature 1**: Reporting and Item Posting
+- 
 Create: Users can create reports and post items they've found by providing detailed descriptions and attaching accompanying images.
  
 Read: Other users can browse and view the reported items.
+
 Update: Users can update their posted items by editing the descriptions or adding additional information.
+
 Delete: Users have the ability to remove their posted items if necessary, keeping the repository organized and up-to-date.
+
 - **Feature 2**: Comment Section
+- 
 Create: Users can add comments to the site. This fosters a sense of community engagement and collaboration.
+
 Read: Users can view comments left by others, facilitating communication and knowledge sharing within the platform.
+
 Update: Users have the ability to edit their own comments, enabling them to correct mistakes or update their thoughts as needed.
+
 Delete: Users can delete their comments if they no longer wish to have them displayed.
