@@ -62,6 +62,7 @@ flutter:
     - Assets/component1.png
     - Assets/component.png
     - Assets/keys.jpg
+    - Assets/necklace.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
