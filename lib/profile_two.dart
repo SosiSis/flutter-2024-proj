@@ -5,7 +5,7 @@ void main() {
 }
 
 class ProfileTwo extends StatefulWidget {
-  const ProfileTwo({super.key});
+  const ProfileTwo({Key? key}) : super(key: key);
 
   @override
   State<ProfileTwo> createState() => _ProfileTwoState();
@@ -14,15 +14,20 @@ class ProfileTwo extends StatefulWidget {
 class _ProfileTwoState extends State<ProfileTwo> {
   final TextEditingController _name =
       TextEditingController(text: "Meron fantahun");
-  final _controller = TextEditingController(text: "09919123433");
-  final _email = TextEditingController(text: "@m_fantahun");
+  final TextEditingController _controller =
+      TextEditingController(text: "09919123433");
+  final TextEditingController _email =
+      TextEditingController(text: "@m_fantahun");
 
-  bool _isEnable = false;
+  bool _isNameEnabled = false;
+  bool _isPhoneEnabled = false;
+  bool _isEmailEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("your profile"),
+        title: const Text("Your Profile"),
         leading: const Icon(Icons.account_circle),
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
@@ -30,149 +35,30 @@ class _ProfileTwoState extends State<ProfileTwo> {
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: Center(
-          // Wrap the Column with Center
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Center(
-                child: CircleAvatar(
-                  radius: 50.0,
-                  child: Icon(
-                    Icons.account_circle,
-                    size: 100,
-                  ),
+              const CircleAvatar(
+                radius: 50.0,
+                child: Icon(
+                  Icons.account_circle,
+                  size: 100,
                 ),
               ),
               const Divider(
                 height: 60,
                 color: Colors.black,
               ),
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text(
-                          "Name",
-                          style: TextStyle(
-                            letterSpacing: 2.0,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: 200,
-                              child: TextField(
-                                controller: _name,
-                                enabled: _isEnable,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                setState(() {
-                                  if (_isEnable) {
-                                    _isEnable = false;
-                                  } else {
-                                    _isEnable = true;
-                                  }
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 18.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text(
-                          "Phone number",
-                          style: TextStyle(
-                            letterSpacing: 2.0,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: 200,
-                              child: TextField(
-                                controller: _controller,
-                                enabled: _isEnable,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                setState(() {
-                                  if (_isEnable) {
-                                    _isEnable = false;
-                                  } else {
-                                    _isEnable = true;
-                                  }
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text(
-                          "Email",
-                          style: TextStyle(
-                            letterSpacing: 2.0,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: 200,
-                              child: TextField(
-                                controller: _email,
-                                enabled: _isEnable,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                setState(() {
-                                  if (_isEnable) {
-                                    _isEnable = false;
-                                  } else {
-                                    _isEnable = true;
-                                  }
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ]),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildProfileField("Name", _name, _isNameEnabled),
+                  buildProfileField(
+                      "Phone number", _controller, _isPhoneEnabled),
+                  buildProfileField("Email", _email, _isEmailEnabled),
+                ],
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -182,12 +68,57 @@ class _ProfileTwoState extends State<ProfileTwo> {
                   Icons.post_add,
                   color: Colors.lightBlue,
                 ),
-                label: const Text("New post"),
+                label: const Text("New Post"),
               )
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildProfileField(
+      String label, TextEditingController controller, bool isEnabled) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                letterSpacing: 2.0,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: TextField(
+                    controller: controller,
+                    enabled: isEnabled,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    setState(() {
+                      if (label == "Name") {
+                        _isNameEnabled = !_isNameEnabled;
+                      } else if (label == "Phone number") {
+                        _isPhoneEnabled = !_isPhoneEnabled;
+                      } else if (label == "Email") {
+                        _isEmailEnabled = !_isEmailEnabled;
+                      }
+                    });
+                  },
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
