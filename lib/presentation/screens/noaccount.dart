@@ -1,4 +1,6 @@
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 
@@ -38,10 +40,7 @@ class NoAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GridView Example',
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: AppBar(
         backgroundColor: Colors.blue[300],
@@ -49,8 +48,11 @@ class NoAccount extends StatelessWidget {
 
           // *********************    navigation to the login page here
             TextButton(
-              onPressed: (){},
-              child: 
+              onPressed: (){
+                Navigator.pushNamed(context, '/login');
+                
+              },
+              child:
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 17),
                   child: Text('Log In', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 17, letterSpacing: 1.3),),
@@ -70,8 +72,8 @@ class NoAccount extends StatelessWidget {
             );
           }),
         ),)
-      ),
-    );
+      );
+
   }
 }
 
@@ -89,57 +91,39 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Card(
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(height: 7,),
-            Image.network(
+    return Card(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start, // Change alignment to start to avoid stretching the items
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 7),
+          Expanded(
+            // Make image flexible within the card
+            child: Image.network(
               item.imageUrl,
-              fit: BoxFit.cover,
-              height: 100,
-              
-              
-            
+              fit: BoxFit.contain, // Adjust image fit to contain to ensure it fits within the bounds
             ),
-            SizedBox(height: 8),
-            
-        
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(onPressed: () {
+                print("context $context");
+
                 
-                ElevatedButton(
-                  onPressed: () {
-                    
-                  },
-                  style: ButtonStyle(
-                  
-                    iconColor: MaterialStatePropertyAll(Colors.blue),
-                    side: MaterialStatePropertyAll(BorderSide(color: Colors.blue))
-                    
-                  ),
-                  child: Icon(Icons.read_more_outlined,),
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    iconColor: MaterialStatePropertyAll(Colors.blue)
-                  ),
-                  onPressed: () {
-                    
-                  },
-                  child: Icon(Icons.comment),
-                ),
-              ],
-            ),
-          ],
-        ),
+                Navigator.pushNamed(context, '/login');
+              }, icon: Icon(Icons.read_more), style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)),),
+              IconButton(onPressed: () {
+                print('pressed');
+                Navigator.pushNamed(context, '/login');
+              }, icon: Icon(Icons.comment), style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)),)
+            ],
+          ),
+        ],
       ),
     );
   }
 }
+

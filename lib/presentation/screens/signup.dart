@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -48,13 +50,18 @@ class SignUpPage extends StatelessWidget {
                     SizedBox(
                       height: 16.0,
                     ),
-                    Text(
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: Text(
                       'I already have an account',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.blue,
                         decoration: TextDecoration.underline,
                       ),
+                    ),
                     ),
                     SizedBox(height: 16.0),
                     ElevatedButton(
@@ -63,7 +70,7 @@ class SignUpPage extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       onPressed: () {
-                        print('Button clicked');
+                        Navigator.pushNamed(context,'/withaccount' );
                       },
                       child:
                           Text('Submit', style: TextStyle(color: Colors.white)),

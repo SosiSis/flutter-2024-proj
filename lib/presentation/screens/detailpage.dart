@@ -17,7 +17,9 @@ class ItemPage extends StatelessWidget {
           )
           
         ],
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
       ),
 
       body: Center(
@@ -121,10 +123,12 @@ Positioned(
           style: TextStyle(overflow: TextOverflow.visible,),),
         ),
 
-        IconButton(onPressed: (){}, icon: Icon(Icons.comment),style:ButtonStyle(side:  MaterialStateProperty.resolveWith<BorderSide>(
+        IconButton(onPressed: (){
+          Navigator.pushNamed(context, '/comment');
+        }, icon: Icon(Icons.comment),style:ButtonStyle(iconColor:MaterialStatePropertyAll(Colors.blue) ,side:  MaterialStateProperty.resolveWith<BorderSide>(
       (Set<MaterialState> states) {
         return BorderSide(
-          color: Colors.grey,
+          color: Colors.white,
           width: 2, 
         );
     

@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 
 class withaccount extends StatelessWidget {
@@ -40,10 +42,8 @@ class withaccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GridView Example',
-      home: Scaffold(
+    return
+      Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: AppBar(
         backgroundColor: Colors.blue[300],
@@ -55,13 +55,15 @@ class withaccount extends StatelessWidget {
           )
           
         ],
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
       ),
         body: Padding(padding: EdgeInsets.all(15),
                       child:GridView.count(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
           crossAxisSpacing: 10,
-          mainAxisSpacing: 40,
+          mainAxisSpacing: 30,
           children: List.generate(items.length, (index) {
             return GridItem(
               item: items[index],
@@ -69,7 +71,7 @@ class withaccount extends StatelessWidget {
           }),
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -88,7 +90,11 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamed(context, '/detail');
+      },
+      child: Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -124,6 +130,7 @@ class GridItem extends StatelessWidget {
               
               ElevatedButton(
                 onPressed: () {
+                  Navigator.pushNamed(context, '/comment');
                   
                 },
                 child: Icon(Icons.comment),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)),
@@ -132,6 +139,7 @@ class GridItem extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
