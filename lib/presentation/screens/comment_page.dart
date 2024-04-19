@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class CommentPage extends StatefulWidget {
@@ -77,12 +79,12 @@ class _CommentPageState extends State<CommentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Comment Page"),
-<<<<<<< HEAD
-        backgroundColor: Color.fromARGB(255, 34, 91, 213),
-=======
-        backgroundColor: Colors.blue[300],
->>>>>>> origin/main
+        backgroundColor: Colors.blue,
+        actions: [Container(
+          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+          child: Text('Comments' ,style:TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3) ,),
+        )],
+
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -106,9 +108,9 @@ class _CommentPageState extends State<CommentPage> {
                 }
               },
               child: const Text('Add Comment'),
-<<<<<<< HEAD
-            ),
-=======
+
+            
+
               style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
@@ -116,7 +118,6 @@ class _CommentPageState extends State<CommentPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
             )
->>>>>>> origin/main
           ],
         ),
       ),
