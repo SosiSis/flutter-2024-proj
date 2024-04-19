@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_project/presentation/screens/create_post_page.dart';
 
 import 'presentation/screens/detailpage.dart';
 import 'package:flutter_project/presentation/screens/login.dart';
 import './presentation/screens/admin_screen.dart/admin.dart';
+=======
+import 'package:flutter_project/Admin/comment_admin.dart';
+import 'package:flutter_project/presentation/screens/comment_page.dart';
+import 'package:flutter_project/presentation/screens/create_post_page.dart';
+import 'package:flutter_project/presentation/screens/detailpage.dart';
+import 'package:flutter_project/presentation/screens/login.dart';
+>>>>>>> origin/main
 import 'package:flutter_project/presentation/screens/noaccount.dart';
+import 'package:flutter_project/presentation/screens/profile_two.dart';
+import 'package:flutter_project/presentation/screens/signup.dart';
+import 'package:flutter_project/presentation/screens/withaccount.dart';
 
 void main() {
   runApp(
+<<<<<<< HEAD
     MaterialApp(home: AdminPage()),
+=======
+    const MyApp(),
+>>>>>>> origin/main
   );
 }
 
@@ -19,42 +34,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: LostFoundForm());
-  }
-}
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      // initialRoute: '/',
+      // routes: {
+      //   '/':(context) => NoAccount(),
+      //   // '/account':(context) => withaccount(),
+      //   '/login':(context) => LogInPage(),
+      //   '/signup':(context) => SignUpPage(),
+      //   '/profile':(context) => ProfileTwo(),
+      //   '/detail':(context)=>ItemPage(),
+      //   '/add':(context)=>LostFoundForm()
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemPage()),
-                );
-              },
-              child: const Text('comment box'))),
+      // },
+      home: ItemPage(),
     );
   }
 }
