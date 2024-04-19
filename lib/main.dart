@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/presentation/screens/login.dart';
+import 'package:flutter_project/presentation/screens/detailpage.dart';
 
 void main() {
   runApp(
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        initialRoute: '/',
+        // initialRoute: '/',
         // routes: {
         //   '/':(context) => NoAccount(),
         //   // '/account':(context) => withaccount(),
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         //   '/add':(context)=>LostFoundForm()
 
         // },
-        home: LogInPage(),
+        home: ItemPage(),
+        
         
         );
   }
