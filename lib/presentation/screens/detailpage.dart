@@ -1,11 +1,47 @@
 import 'package:flutter/material.dart';
 
+<<<<<<< HEAD
+import '../widgets/top_bar.dart';
+=======
 
+>>>>>>> origin/main
 
 class ItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
+        backgroundColor: Colors.white,
+        body: ListView(
+          children: [
+            PagesAppBar(),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Image.asset(
+                "Assets/keys.jpg",
+                height: 300,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(4), // Remove button padding
+                // Remove button padding
+              ),
+              child: const Text(
+                'Unclaimed',
+                style: TextStyle(color: Colors.black), // Adjust text color
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.grey), // Adjust color as needed
+                    borderRadius: BorderRadius.circular(4.0),
+=======
       backgroundColor: Colors.blue[100],
         appBar: AppBar(
         backgroundColor: Colors.blue[300],
@@ -73,21 +109,60 @@ Positioned(
                     border: Border.all(
                         color: Colors.white),
                     borderRadius: BorderRadius.circular(50),
+>>>>>>> origin/main
                   ),
                   padding: const EdgeInsets.all(16),
                   child: const Column(
                     children: [
                       Text(
                         "Found on ",
+<<<<<<< HEAD
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "April 4, 2024",
+                        style: TextStyle(fontWeight: FontWeight.normal),
+=======
                         style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 238, 238, 238)),
                       ),
                       Text(
                         "April 4, 2024",
                         style: TextStyle(fontWeight: FontWeight.normal,color: Color.fromARGB(255, 238, 238, 238)),
+>>>>>>> origin/main
                       ),
                     ],
                   ),
                 ),
+<<<<<<< HEAD
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.grey), // Adjust color as needed
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: const Column(
+                    children: [
+                      Text(
+                        "Found At ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "6 AM",
+                        style: TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.grey), // Adjust color as needed
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  margin: EdgeInsets.all(12),
+=======
 
 
                 
@@ -101,6 +176,7 @@ Positioned(
                   ),
                   padding: const EdgeInsets.all(16),
                   margin: EdgeInsets.all(10),
+>>>>>>> origin/main
                   child: const Column(
                     children: [
                       Text(
@@ -114,6 +190,34 @@ Positioned(
                     ],
                   ),
                 ),
+<<<<<<< HEAD
+              ],
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border:
+                    Border.all(color: Colors.grey), // Adjust color as needed
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: const Column(
+                children: [
+                  Text(
+                    "Description ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti atque, minus ex, itaque, cupiditate quibusdam consequatur odio vitae molestiae dolore magni earum maxime! Dolorum, fuga quo earum blanditiis expedita amet. Perferendis, voluptas dicta alias itaque labore vitae quod totam molestiae modi quia sequi maxime nesciunt, quo est minima sit laudantium ullam? ",
+                    style: TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+}
+=======
         ],
         ),
         SizedBox(height: 20,),
@@ -156,3 +260,4 @@ Positioned(
     );
   }
 }
+>>>>>>> origin/main

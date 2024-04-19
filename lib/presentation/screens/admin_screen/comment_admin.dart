@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CommentPage extends StatefulWidget {
+class AdminCommentPage extends StatefulWidget {
   @override
   _CommentPageState createState() => _CommentPageState();
 }
 
-class _CommentPageState extends State<CommentPage> {
+class _CommentPageState extends State<AdminCommentPage> {
   final TextEditingController commentController = TextEditingController();
   List<Map<String, String>> filedata = [
     {
@@ -31,45 +31,33 @@ class _CommentPageState extends State<CommentPage> {
   final commentTextFieldController = TextEditingController();
 
   Widget commentChild(List<Map<String, String>> data) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
-                child: ListTile(
-                  title: Text(
-                    data[index]['name']!,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(data[index]['message']!),
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
+          child: ListTile(
+            title: Row(
+              children: [
+                Text(
+                  data[index]['name']!,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              );
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(9.0),
-          child: Form(
-            key: commentFieldKey,
-            child: TextFormField(
-              controller: commentTextFieldController,
-              decoration: const InputDecoration(
-                labelText: 'Add a comment',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a comment';
-                }
-                return null;
-              },
+                Spacer(),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    setState(() {
+                      filedata.removeAt(index);
+                    });
+                  },
+                ),
+              ],
             ),
+            subtitle: Text(data[index]['message']!),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
@@ -78,11 +66,7 @@ class _CommentPageState extends State<CommentPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Comment Page"),
-<<<<<<< HEAD
-        backgroundColor: Color.fromARGB(255, 34, 91, 213),
-=======
         backgroundColor: Colors.blue[300],
->>>>>>> origin/main
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -90,6 +74,25 @@ class _CommentPageState extends State<CommentPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: commentChild(filedata),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: Form(
+                key: commentFieldKey,
+                child: TextFormField(
+                  controller: commentTextFieldController,
+                  decoration: const InputDecoration(
+                    labelText: 'Add a comment',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a comment';
+                    }
+                    return null;
+                  },
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -106,17 +109,13 @@ class _CommentPageState extends State<CommentPage> {
                 }
               },
               child: const Text('Add Comment'),
-<<<<<<< HEAD
-            ),
-=======
               style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
                   padding: EdgeInsets.symmetric(horizontal: 7, vertical: 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
-            )
->>>>>>> origin/main
+            ),
           ],
         ),
       ),
