@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class AdminCommentPage extends StatefulWidget {
   @override
-  _CommentPageState createState() => _CommentPageState();
+  _AdminCommentPageState createState() => _AdminCommentPageState();
 }
 
-class _CommentPageState extends State<AdminCommentPage> {
-  final TextEditingController commentController = TextEditingController();
+class _AdminCommentPageState extends State<AdminCommentPage> {
   List<Map<String, String>> filedata = [
     {
       'name': 'Nahusenay',
@@ -26,9 +25,6 @@ class _CommentPageState extends State<AdminCommentPage> {
       'message': 'Your phone is not working how can I contact you',
     },
   ];
-
-  final commentFieldKey = GlobalKey<FormState>();
-  final commentTextFieldController = TextEditingController();
 
   Widget commentChild(List<Map<String, String>> data) {
     return ListView.builder(
@@ -68,57 +64,76 @@ class _CommentPageState extends State<AdminCommentPage> {
         title: const Text("Comment Page"),
         backgroundColor: Colors.blue[300],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.8,
-              child: commentChild(filedata),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: Form(
-                key: commentFieldKey,
-                child: TextFormField(
-                  controller: commentTextFieldController,
-                  decoration: const InputDecoration(
-                    labelText: 'Add a comment',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a comment';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (commentFieldKey.currentState!.validate()) {
-                  setState(() {
-                    var value = {
-                      'name': 'New User',
-                      'message': commentTextFieldController.text,
-                    };
-                    filedata.insert(0, value);
-                  });
-                  commentTextFieldController.clear();
-                  FocusScope.of(context).unfocus();
-                }
+      body: Column(
+        children: [
+          Expanded(
+            child: commentChild(filedata),
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CommentBox(
+              labelText: 'Add a comment...',
+              errorText: 'Please enter a comment',
+              sendButtonMethod: (commentText) {
+                setState(() {
+                  var value = {
+                    'name': 'New User',
+                    'message': commentText,
+                  };
+                  filedata.insert(0, value);
+                });
               },
-              child: const Text('Add Comment'),
-              style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15))),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class CommentBox extends StatelessWidget {
+  final String labelText;
+  final String errorText;
+  final Function(String) sendButtonMethod;
+
+  const CommentBox({
+    required this.labelText,
+    required this.errorText,
+    required this.sendButtonMethod,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController commentController = TextEditingController();
+
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: commentController,
+            decoration: InputDecoration(
+              labelText: labelText,
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.send),
+          onPressed: () {
+            if (commentController.text.trim().isNotEmpty) {
+              sendButtonMethod(commentController.text);
+              commentController.clear();
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(errorText),
+                ),
+              );
+            }
+          },
+        ),
+      ],
     );
   }
 }
