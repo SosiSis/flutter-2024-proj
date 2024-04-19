@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/create_post_page.dart';
+import 'package:flutter_project/presentation/screens/create_post_page.dart';
 
-import 'detailpage.dart';
-
+import 'presentation/screens/detailpage.dart';
+import 'package:flutter_project/presentation/screens/login.dart';
+import './presentation/screens/admin_screen.dart/admin.dart';
 import 'package:flutter_project/presentation/screens/noaccount.dart';
 
 void main() {
   runApp(
-    const MaterialApp(home: NoAccount()),
+    MaterialApp(home: AdminPage()),
   );
 }
 
