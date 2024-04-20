@@ -1,13 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class CommentPage extends StatefulWidget {
   @override
-  _CommentPagState createState() => _CommentPagState();
+  _CommentPageState createState() => _CommentPageState();
 }
 
-class _CommentPagState extends State<CommentPage> {
+class _CommentPageState extends State<CommentPage> {
   List<Map<String, String>> filedata = [
     {
       'name': 'Nahusenay',
@@ -54,14 +52,14 @@ class _CommentPagState extends State<CommentPage> {
         actions: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-            child: Text('comments',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19,letterSpacing: 1.3),),
-          ),
-          
-        ],
+            child: Text('comments',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3),) ,
 
+          )
+        
+        ],
         leading: IconButton(onPressed: (){
           Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
+        }, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
       ),
       body: Column(
         children: [
@@ -71,7 +69,7 @@ class _CommentPagState extends State<CommentPage> {
           const Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CommentBox(
+            child: CustomCommentBox(
               labelText: 'Add a comment...',
               errorText: 'Please enter a comment',
               sendButtonMethod: (commentText) {
@@ -91,12 +89,12 @@ class _CommentPagState extends State<CommentPage> {
   }
 }
 
-class CommentBox extends StatelessWidget {
+class CustomCommentBox extends StatelessWidget {
   final String labelText;
   final String errorText;
   final Function(String) sendButtonMethod;
 
-  const CommentBox({
+  const CustomCommentBox({
     required this.labelText,
     required this.errorText,
     required this.sendButtonMethod,
@@ -118,7 +116,7 @@ class CommentBox extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.send),
+          icon: Icon(Icons.send, color: Colors.blue), // Change icon color
           onPressed: () {
             if (commentController.text.trim().isNotEmpty) {
               sendButtonMethod(commentController.text);
