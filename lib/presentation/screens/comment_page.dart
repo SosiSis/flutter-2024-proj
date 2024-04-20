@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class CommentPage extends StatefulWidget {
@@ -48,8 +50,18 @@ class _CommentPagState extends State<CommentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Comment Page"),
         backgroundColor: Colors.blue[300],
+        actions: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+            child: Text('comments',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19,letterSpacing: 1.3),),
+          ),
+          
+        ],
+
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
       ),
       body: Column(
         children: [

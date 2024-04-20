@@ -6,17 +6,13 @@ class LostFoundForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        actions: [Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-          child: Text(
-            'Create Post',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.w700),),)],),
-
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.blue[300],
+        title: Center(child: Text('Comments',style: TextStyle(color: Colors.white),),),
+      ),
+        
 
       body:SingleChildScrollView(
         child:Padding(
@@ -85,7 +81,7 @@ class LostFoundForm extends StatelessWidget {
               child: Text('Post'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.blue[400],
                 padding: EdgeInsets.symmetric(horizontal: 7, vertical: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)

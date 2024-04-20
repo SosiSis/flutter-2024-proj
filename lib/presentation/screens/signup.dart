@@ -70,7 +70,7 @@ class SignUpPage extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context,'/withaccount' );
+                        Navigator.pushNamed(context,'/home' );
                       },
                       child:
                           Text('Submit', style: TextStyle(color: Colors.white)),

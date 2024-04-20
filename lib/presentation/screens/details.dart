@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: DetailsPage(),
-  ));
-}
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});

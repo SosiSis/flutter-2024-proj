@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(home: ProfileTwo()));
-}
 
 class ProfileTwo extends StatefulWidget {
   const ProfileTwo({Key? key}) : super(key: key);
@@ -27,12 +24,12 @@ class _ProfileTwoState extends State<ProfileTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Your Profile"),
-        leading: const Icon(Icons.account_circle),
-        centerTitle: true,
-        backgroundColor: Colors.lightBlue,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.blue[300],
+        title: Center(child: Text('your Profile',style: TextStyle(color: Colors.white),),),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
         padding: const EdgeInsets.all(30),
         child: Center(
           child: Column(
@@ -40,10 +37,11 @@ class _ProfileTwoState extends State<ProfileTwo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const CircleAvatar(
-                radius: 50.0,
+                radius: 100.0,
                 child: Icon(
                   Icons.account_circle,
-                  size: 100,
+                  size: 200,
+                  
                 ),
               ),
               const Divider(
@@ -62,18 +60,12 @@ class _ProfileTwoState extends State<ProfileTwo> {
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.post_add,
-                  color: Colors.lightBlue,
-                ),
-                label: const Text("New Post"),
-              )
+            
             ],
           ),
         ),
       ),
+      )
     );
   }
 

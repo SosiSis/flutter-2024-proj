@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart'; // Import this for the Navigator class
 
-import '../../widgets/top_bar.dart';
+
 
 class AdminPage extends StatefulWidget {
   @override
@@ -14,10 +13,23 @@ class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue[300],
+        actions: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+            child: Text('Item',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3),) ,
+
+          )
+        
+        ],
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
+      ),
       backgroundColor: Colors.white,
       body: ListView(
         children: [
-          PagesAppBar(),
           Padding(
             padding: const EdgeInsets.all(16),
           ),

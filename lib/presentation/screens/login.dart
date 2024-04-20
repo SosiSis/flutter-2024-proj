@@ -66,7 +66,7 @@ class LogInPage extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/withaccount');
+                        Navigator.pushNamed(context, '/home');
                       },
                       child: Text(
                         'Log In',
