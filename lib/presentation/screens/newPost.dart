@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(NewPost());
-}
-
 class NewPost extends StatefulWidget {
   @override
   State<NewPost> createState() => _NewPostState();
@@ -37,8 +33,8 @@ class _NewPostState extends State<NewPost> {
                         child: Center(
                           child: Image.asset(
                             images[0],
-                            width: 100, // Adjust the width as needed
-                            height: 100, // Adjust the height as needed
+                            width: 100,
+                            height: 100,
                           ),
                         ),
                       ),
@@ -56,9 +52,9 @@ class _NewPostState extends State<NewPost> {
                             borderRadius: BorderRadius.circular(15),
                             color: Colors.white,
                             border:
-                                Border.all(color: Colors.black), // Black border
+                                Border.all(color: Colors.black),
                           ),
-                          width: 300, // Adjust the width as needed
+                          width: 300,
                           padding: EdgeInsets.all(10),
                           child: SingleChildScrollView(
                             child: Column(

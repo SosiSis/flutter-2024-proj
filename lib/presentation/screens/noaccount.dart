@@ -102,15 +102,15 @@ class GridItem extends StatelessWidget {
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start, // Change alignment to start to avoid stretching the items
+        mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 7),
           Expanded(
-            // Make image flexible within the card
+            
             child: Image.network(
               item.imageUrl,
-              fit: BoxFit.contain, // Adjust image fit to contain to ensure it fits within the bounds
+              fit: BoxFit.contain,
             ),
           ),
           Row(

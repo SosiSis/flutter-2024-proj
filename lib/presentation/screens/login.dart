@@ -15,7 +15,7 @@ class LogInPage extends StatelessWidget {
               child: Image.asset('Assets/component.png',
                   alignment: Alignment.center, fit: BoxFit.fill
 
-                  // Set width to occupy full width
+                  
                   ),
             ),
             Container(

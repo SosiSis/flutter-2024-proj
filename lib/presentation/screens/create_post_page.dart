@@ -19,7 +19,7 @@ class LostFoundForm extends StatelessWidget {
         padding: EdgeInsets.all(27),
         child: Column(
 
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      
           crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: [
@@ -59,7 +59,7 @@ class LostFoundForm extends StatelessWidget {
             SizedBox(height: 40,),
 
             TextFormField(
-              maxLines: 7, // adjust the number of lines here
+              maxLines: 7,
               decoration: InputDecoration(
                 labelText: 'Description',
                 alignLabelWithHint: true,
@@ -103,7 +103,7 @@ class AttachImageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       onPressed: () {
-        // TODO: Implement image attach logic
+        
       },
       icon: Icon(Icons.add),
       label: Text('Attach an image'),
