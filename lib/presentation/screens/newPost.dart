@@ -10,7 +10,7 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
-  List<String> images = ["assets/post.png"];
+  List<String> images = ["Assets/post.png"];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
