@@ -10,7 +10,7 @@ class LostFoundForm extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue[300],
-        title: Center(child: Text('Comments',style: TextStyle(color: Colors.white),),),
+        title: Center(child: Text('create post',style: TextStyle(color: Colors.white),),),
       ),
         
 
