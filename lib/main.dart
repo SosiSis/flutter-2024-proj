@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project/presentation/screens/admin_screen/admin.dart';
 import 'package:flutter_project/presentation/screens/comment_page.dart';
 import 'package:flutter_project/presentation/screens/create_post_page.dart';
 import 'package:flutter_project/presentation/screens/login.dart';
 import 'package:flutter_project/presentation/screens/noaccount.dart';
-import 'package:flutter_project/presentation/screens/profile_two.dart';
+import 'package:flutter_project/presentation/screens/profile.dart';
 import 'package:flutter_project/presentation/screens/signup.dart';
 import 'package:flutter_project/presentation/screens/withaccount.dart';
 import 'package:flutter_project/presentation/widgets/nav.dart';
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
           '/home':(context) => HomeScreen()
 
         },
-        home: AdminPage()
+        home: NoAccount()
           
         
         

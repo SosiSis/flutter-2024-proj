@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project/presentation/screens/create_post_page.dart';
-import 'package:flutter_project/presentation/screens/profile_two.dart';
+import 'package:flutter_project/presentation/screens/profile.dart';
 import 'package:flutter_project/presentation/screens/withaccount.dart';
 
 class HomeScreen extends StatefulWidget{
