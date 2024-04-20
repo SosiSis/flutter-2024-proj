@@ -65,7 +65,7 @@ class _AdminCommentPageState extends State<AdminCommentPage> {
         actions: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-            child: Text('Comments',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3),) ,
+            child: Text('comments',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3),) ,
 
           )
         
@@ -82,13 +82,13 @@ class _AdminCommentPageState extends State<AdminCommentPage> {
           Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CommentBox(
+            child: CustomCommentField(
               labelText: 'Add a comment...',
-              errorText: 'Please enter a comment',
+              errorText: 'no comment added',
               sendButtonMethod: (commentText) {
                 setState(() {
                   var value = {
-                    'name': 'New User',
+                    'name': 'Unknown',
                     'message': commentText,
                   };
                   filedata.insert(0, value);
@@ -102,42 +102,47 @@ class _AdminCommentPageState extends State<AdminCommentPage> {
   }
 }
 
-class CommentBox extends StatelessWidget {
+class CustomCommentField extends StatefulWidget {
   final String labelText;
   final String errorText;
   final Function(String) sendButtonMethod;
 
-  const CommentBox({
+  const CustomCommentField({
     required this.labelText,
     required this.errorText,
     required this.sendButtonMethod,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController commentController = TextEditingController();
+  _CustomCommentFieldState createState() => _CustomCommentFieldState();
+}
 
+class _CustomCommentFieldState extends State<CustomCommentField> {
+  final TextEditingController commentController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: TextField(
             controller: commentController,
             decoration: InputDecoration(
-              labelText: labelText,
+              labelText: widget.labelText,
               border: OutlineInputBorder(),
             ),
           ),
         ),
         IconButton(
-          icon: Icon(Icons.send),
+          icon: Icon(Icons.send, color: Colors.blue), // Set icon color to blue
           onPressed: () {
             if (commentController.text.trim().isNotEmpty) {
-              sendButtonMethod(commentController.text);
+              widget.sendButtonMethod(commentController.text);
               commentController.clear();
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(errorText),
+                  content: Text(widget.errorText),
                 ),
               );
             }
@@ -145,5 +150,11 @@ class CommentBox extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    commentController.dispose();
+    super.dispose();
   }
 }
