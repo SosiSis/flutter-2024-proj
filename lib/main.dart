@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_project/presentation/screens/create_post_page.dart';
 
 import 'presentation/screens/detailpage.dart';
 import 'package:flutter_project/presentation/screens/login.dart';
-import './presentation/screens/admin_screen.dart/admin.dart';
-=======
-import 'package:flutter_project/Admin/comment_admin.dart';
-import 'package:flutter_project/presentation/screens/comment_page.dart';
-import 'package:flutter_project/presentation/screens/create_post_page.dart';
-import 'package:flutter_project/presentation/screens/detailpage.dart';
-import 'package:flutter_project/presentation/screens/login.dart';
->>>>>>> origin/main
+import 'presentation/screens/admin_screen/admin.dart';
 import 'package:flutter_project/presentation/screens/noaccount.dart';
 import 'package:flutter_project/presentation/screens/profile_two.dart';
 import 'package:flutter_project/presentation/screens/signup.dart';
@@ -19,11 +11,7 @@ import 'package:flutter_project/presentation/screens/withaccount.dart';
 
 void main() {
   runApp(
-<<<<<<< HEAD
     MaterialApp(home: AdminPage()),
-=======
-    const MyApp(),
->>>>>>> origin/main
   );
 }
 
