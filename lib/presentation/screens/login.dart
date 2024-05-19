@@ -1,7 +1,9 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class LogInPage extends StatelessWidget {
-  const LogInPage({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class LogInPage extends StatelessWidget {
               child: Image.asset('Assets/component.png',
                   alignment: Alignment.center, fit: BoxFit.fill
 
-                  // Set width to occupy full width
+                  
                   ),
             ),
             Container(
@@ -26,13 +28,14 @@ class LogInPage extends StatelessWidget {
                             fontSize: 40.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
-                    TextField(
+                    TextFormField(
+                      
                       decoration: InputDecoration(
                         labelText: 'Email',
                         prefixIcon: Icon(Icons.mail),
                       ),
                     ),
-                    TextField(
+                    TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Password',
                         prefixIcon: Icon(Icons.lock),
@@ -42,13 +45,19 @@ class LogInPage extends StatelessWidget {
                     SizedBox(
                       height: 16.0,
                     ),
-                    Text(
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, '/signup');
+                      },
+                      child: Text(
                       'I do not have account',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.blue,
                         decoration: TextDecoration.underline,
+                        
                       ),
+                    ),
                     ),
                     SizedBox(height: 16.0),
                     ElevatedButton(
@@ -57,7 +66,7 @@ class LogInPage extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       onPressed: () {
-                        print('Button clicked');
+                        Navigator.pushNamed(context, '/home');
                       },
                       child: Text(
                         'Log In',
@@ -66,7 +75,7 @@ class LogInPage extends StatelessWidget {
                     ),
                   ],
                 )),
-            Container(child: Image.asset('Assets/component1.png'))
+            Container(child: Image.asset('Assets/component1.png',fit: BoxFit.fill,))
           ],
         ),
       ),

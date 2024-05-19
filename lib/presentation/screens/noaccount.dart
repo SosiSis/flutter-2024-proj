@@ -1,3 +1,6 @@
+
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class NoAccount extends StatelessWidget {
@@ -33,16 +36,23 @@ class NoAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GridView Example',
-      home: Scaffold(
-          backgroundColor: Colors.blue[100],
-          appBar: AppBar(backgroundColor: Colors.blue[300], actions: [
-            // *********************    navigation to the login page here
+
+    return Scaffold(
+        backgroundColor: Colors.blue[100],
+        appBar: AppBar(
+        backgroundColor: Colors.blue[300],
+        actions: [
+
+          // *********************    navigation to the login page here
             TextButton(
-                onPressed: () {},
-                child: Container(
+              onPressed: (){
+                Navigator.pushNamed(context, '/login');
+                
+              },
+              child:
+                Container(
+
+
                   margin: EdgeInsets.symmetric(horizontal: 17),
                   child: Text(
                     'Log In',
@@ -53,21 +63,25 @@ class NoAccount extends StatelessWidget {
                         letterSpacing: 1.3),
                   ),
                 ))
-          ]),
-          body: Padding(
-            padding: EdgeInsets.all(10),
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 33,
-              children: List.generate(items.length, (index) {
-                return GridItem(
-                  item: items[index],
-                );
-              }),
-            ),
-          )),
-    );
+
+        ]
+      ),
+        body: Padding(padding: EdgeInsets.all(10),
+        
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 33,
+          children: List.generate(items.length, (index) {
+            return GridItem(
+              item: items[index],
+
+            );
+          }),
+        ),)
+      );
+
+
   }
 }
 
@@ -84,48 +98,38 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Card(
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(
-              height: 7,
-            ),
-            Image.network(
+    return Card(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 7),
+          Expanded(
+            
+            child: Image.network(
               item.imageUrl,
-              fit: BoxFit.cover,
-              height: 100,
+              fit: BoxFit.contain,
             ),
-            SizedBox(height: 8),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                      iconColor: MaterialStatePropertyAll(Colors.blue),
-                      side: MaterialStatePropertyAll(
-                          BorderSide(color: Colors.blue))),
-                  child: Icon(
-                    Icons.read_more_outlined,
-                  ),
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      iconColor: MaterialStatePropertyAll(Colors.blue)),
-                  onPressed: () {},
-                  child: Icon(Icons.comment),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              }, icon: Icon(Icons.read_more),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)),),
+
+              IconButton(onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              }, icon: Icon(Icons.comment),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)))
+            ],
+          ),
+        ],
       ),
     );
   }
 }
+
+
+

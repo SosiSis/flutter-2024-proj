@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ItemPage extends StatelessWidget {
+class AdminItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,9 @@ class ItemPage extends StatelessWidget {
           )
         ],
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: Icon(
             Icons.arrow_back,
           ),
@@ -140,25 +142,82 @@ class ItemPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/comment');
-                              },
-                              icon: Icon(Icons.comment),
-                              style: ButtonStyle(
-                                iconColor:
-                                    MaterialStatePropertyAll(Colors.blue),
-                                side: MaterialStateProperty.resolveWith<
-                                    BorderSide>(
-                                  (Set<MaterialState> states) {
-                                    return BorderSide(
-                                      color: Colors.white,
-                                      width: 2,
-                                    );
-                                  },
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .start, // Align buttons to the left
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Delete button action
+                                      },
+                                      child: Text('Delete'),
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.white),
+                                        side: MaterialStateProperty.resolveWith<
+                                            BorderSide>(
+                                          (Set<MaterialState> states) {
+                                            return BorderSide(
+                                              color: Colors.blue,
+                                              width:
+                                                  2, // Adjust border width as needed
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width:
+                                            10), // Add spacing between buttons
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Edit button action
+                                      },
+                                      child: Text('Edit'),
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.blue),
+                                        side: MaterialStateProperty.resolveWith<
+                                            BorderSide>(
+                                          (Set<MaterialState> states) {
+                                            return BorderSide(
+                                              color: Colors.white,
+                                              width:
+                                                  2, // Adjust border width as needed
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                alignment: Alignment.topCenter,
-                              ))
+                                // Add spacing between buttons and comment button
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/comment');
+                                  },
+                                  icon: Icon(Icons.comment),
+                                  style: ButtonStyle(
+                                    iconColor:
+                                        MaterialStateProperty.all(Colors.blue),
+                                    side: MaterialStateProperty.resolveWith<
+                                        BorderSide>(
+                                      (Set<MaterialState> states) {
+                                        return BorderSide(
+                                          color: Colors.white,
+                                          width: 2,
+                                        );
+                                      },
+                                    ),
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                ),
+                              ]),
                         ])))
           ],
         ),

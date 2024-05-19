@@ -1,84 +1,94 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class withaccount extends StatelessWidget {
-  final List<Item> items = [
-  
-    Item(
-      imageUrl: 'https://www.jumio.com/app/uploads/2020/10/ID-US.png',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-      
-    ),
-    Item(
-      imageUrl: 'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    ),
-    Item(
-      imageUrl: 'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    ),
-    Item(
-      imageUrl: 'https://th.bing.com/th/id/OIP.3l2nfzcHhMemSZooiH3B3AHaFj?rs=1&pid=ImgDetMain',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    ),
-    Item(
-      imageUrl: 'https://www.jumio.com/app/uploads/2020/10/ID-US.png',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    ),
-    Item(
-      imageUrl: 'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    ),
-    Item(
-      imageUrl: 'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-      description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-    ),
-  
-  
-  ];
+class WithAccount extends StatefulWidget {
+  @override
+  _WithAccountState createState() => _WithAccountState();
+}
+
+class _WithAccountState extends State<WithAccount> {
+  List<Item> items = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchItems();
+  }
+
+  Future<void> fetchItems() async {
+    final response = await http.get(Uri.parse('http://localhost:3003/items'));
+    if (response.statusCode == 200) {
+      final List<dynamic> itemJson = json.decode(response.body);
+      setState(() {
+        items = itemJson.map((json) => Item.fromJson(json)).toList();
+      });
+    } else {
+      // Handle the error
+      throw Exception('Failed to load items');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GridView Example',
-      home: Scaffold(
-        backgroundColor: Colors.blue[100],
-        appBar: AppBar(
+    return Scaffold(
+      backgroundColor: Colors.blue[100],
+      appBar: AppBar(
         backgroundColor: Colors.blue[300],
         actions: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-            child: Text('Home',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3),) ,
-
-          )
-          
+            child: Text(
+              'Home',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 19,
+                color: Colors.white,
+                letterSpacing: 1.3,
+              ),
+            ),
+          ),
         ],
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
-      ),
-        body: Padding(padding: EdgeInsets.all(15),
-                      child:GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 40,
-          children: List.generate(items.length, (index) {
-            return GridItem(
-              item: items[index],
-            );
-          }),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+          style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),
         ),
       ),
-    ));
+      body: items.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: EdgeInsets.all(15),
+              child: GridView.count(
+                crossAxisCount: 1,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 30,
+                children: List.generate(items.length, (index) {
+                  return GridItem(
+                    item: items[index],
+                  );
+                }),
+              ),
+            ),
+    );
   }
 }
 
-      
 class Item {
   final String imageUrl;
   final String description;
 
   Item({required this.imageUrl, required this.description});
+  factory Item.fromJson(Map<String, dynamic> json) {
+    String base64Image = base64Encode(List<int>.from(json['picture']['data']));
+    String imageUrl = 'data:image/png;base64,$base64Image';
+    return Item(
+      imageUrl: imageUrl,
+      description: json['description'] ?? '', // Provide a default value if null
+    );
+  }
 }
 
 class GridItem extends StatelessWidget {
@@ -88,51 +98,53 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: 1,),
-          Expanded(
-            
-            child: Image.network(
-
-              
-              item.imageUrl,
-              fit: BoxFit.cover,
-              
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              item.description,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            
-            children: [
-              
-              ElevatedButton(
-                onPressed: () {
-                  
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/detail');
+      },
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 1),
+            Expanded(
+              child: Image.network(
+                item.imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(child: Icon(Icons.broken_image, size: 50));
                 },
-                child: Icon(Icons.comment),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)),
               ),
-            ],
-          ),
-        ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                item.description,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/comment');
+                  },
+                  child: Icon(Icons.comment),
+                  style: ButtonStyle(
+                      iconColor: MaterialStatePropertyAll(Colors.blue)),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-

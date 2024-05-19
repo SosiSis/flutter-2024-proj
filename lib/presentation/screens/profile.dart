@@ -1,165 +1,116 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-void main() {
-  runApp(MaterialApp(home: Profile()));
+
+class ProfileTwo extends StatefulWidget {
+  const ProfileTwo({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileTwo> createState() => _ProfileTwoState();
 }
 
-class Profile extends StatelessWidget {
+class _ProfileTwoState extends State<ProfileTwo> {
+  final TextEditingController _name =
+      TextEditingController(text: "Meron fantahun");
+  final TextEditingController _controller =
+      TextEditingController(text: "09919123433");
+  final TextEditingController _email =
+      TextEditingController(text: "@m_fantahun");
+
+  bool _isNameEnabled = false;
+  bool _isPhoneEnabled = false;
+  bool _isEmailEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
-        centerTitle: true,
-        backgroundColor: Colors.lightBlue,
-        //remember this
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.blue[300],
+        title: Center(child: Text('your Profile',style: TextStyle(color: Colors.white),),),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.all(20.0),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 50.0,
-                      child: Icon(
-                        Icons.account_circle,
-                        size: 55,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Expanded(
-                      flex: 2, // Adjusted flex factor
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Name: Woldemariam aberta",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis, // Prevent overflow
-                          ),
-                          SizedBox(
-                            height: 7.0,
-                          ),
-                          Text(
-                            "Phone number: 0912234567",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child:
-                            IconButton(onPressed: null, icon: Icon(Icons.edit)))
-                  ],
-                ),
-              ),
-            ),
-            const Divider(
-              height: 10.0,
-              color: Colors.grey,
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                padding: const EdgeInsets.all(20.0),
-                child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
-                  ),
-                  children: [
-                    cards(
-                      imag:
-                          Imag(text: "Oscar wild", link: "assets/necklace.png"),
-                    ),
-                    cards(
-                      imag:
-                          Imag(text: "Oscar wild", link: "assets/necklace.png"),
-                    ),
-                    cards(
-                      imag:
-                          Imag(text: "Oscar wild", link: "assets/necklace.png"),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.post_add,
-                color: Colors.lightBlue,
-              ),
-              label: const Text("New post"),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class cards extends StatelessWidget {
-  final Imag imag;
-  const cards({required this.imag});
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      // Wrap Card with Flexible
-      flex: 1, // Set a flex factor
-      child: Card(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(10), // Adjust padding as needed
+        padding: const EdgeInsets.all(30),
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment:
-                CrossAxisAlignment.stretch, // Center content vertically
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                  flex: 3,
-                  // Wrap Image.asset with Expanded
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20), // Image border
-                    child: SizedBox.fromSize(
-                      size: Size.fromRadius(48), // Image radius
-                      child: Image.network(imag.link, fit: BoxFit.cover),
-                    ),
-                  )),
-              const Expanded(
-                flex: 1,
-                child: SizedBox(
-                  height: 10, // Adjust spacing between image and text
+              const CircleAvatar(
+                radius: 100.0,
+                child: Icon(
+                  Icons.account_circle,
+                  size: 200,
+                  
                 ),
               ),
-              Expanded(
-                  flex: 1,
-                  child: Text(
-                    "Description: " + imag.text,
-                    textAlign: TextAlign.start, // Center text horizontally
-                  ))
+              const Divider(
+                height: 60,
+                color: Colors.black,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildProfileField("Name", _name, _isNameEnabled),
+                  buildProfileField(
+                      "Phone number", _controller, _isPhoneEnabled),
+                  buildProfileField("Email", _email, _isEmailEnabled),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            
             ],
           ),
         ),
       ),
+      )
     );
   }
-}
 
-class Imag {
-  String text;
-  String link;
-
-  Imag({required this.text, required this.link});
+  Widget buildProfileField(
+      String label, TextEditingController controller, bool isEnabled) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                letterSpacing: 2.0,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: TextField(
+                    controller: controller,
+                    enabled: isEnabled,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    setState(() {
+                      if (label == "Name") {
+                        _isNameEnabled = !_isNameEnabled;
+                      } else if (label == "Phone number") {
+                        _isPhoneEnabled = !_isPhoneEnabled;
+                      } else if (label == "Email") {
+                        _isEmailEnabled = !_isEmailEnabled;
+                      }
+                    });
+                  },
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
