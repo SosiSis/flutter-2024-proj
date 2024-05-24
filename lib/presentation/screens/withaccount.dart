@@ -6,7 +6,6 @@ class WithAccount extends StatefulWidget {
   @override
   _WithAccountState createState() => _WithAccountState();
 }
-
 class _WithAccountState extends State<WithAccount> {
   List<Item> items = [];
 
