@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,7 +7,7 @@ import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/providers/itemproviders.dart';  // Ensure this file has the correct provider setup
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WithAccount extends ConsumerWidget {
+class adminFeed extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(postprovider);  // Watching the posts state managed by Riverpod
@@ -62,7 +64,7 @@ class GridItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Define what happens when a card is tapped
-        Navigator.pushNamed(context, '/detail');
+        Navigator.pushNamed(context, '/admin_detail');
       },
       child: Card(
         child: Column(
@@ -97,7 +99,7 @@ class GridItem extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Define what happens when the comment button is pressed
-                    Navigator.pushNamed(context, '/comment');
+                    Navigator.pushNamed(context, '/admin_comment');
                   },
                   child: Icon(Icons.comment),
                   style: ButtonStyle(
