@@ -59,21 +59,18 @@ class ItemPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/comment'); // Navigate to comments
+                  Navigator.pushNamed(context, '/comment',arguments: item.id); // Navigate to comments
                 },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.comment),
-                    SizedBox(width: 10),
+                child:
                     Text('View Comments')
-                  ],
-                ),
+                  ,
+                
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.blue[400],
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18),
+            
                   ),
                 ),
               ),
