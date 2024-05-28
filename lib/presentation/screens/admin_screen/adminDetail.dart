@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart'; // Make sure this contains the Post model
 import 'package:flutter_project/providers/itemproviders.dart';
@@ -78,7 +76,7 @@ void didChangeDependencies() {
               height: 300,
               child: Hero(
                 tag: 'postImage${widget.item.image}',
-                child: Image.file(File(widget.item.image), fit: BoxFit.cover),
+                child: Image.memory(widget.item.image, fit: BoxFit.cover),
               ),
             ),
             Padding(

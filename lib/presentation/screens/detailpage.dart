@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart'; // Make sure this contains the Post model
 
@@ -38,8 +36,7 @@ class ItemPage extends StatelessWidget {
               height: 300,
               child: Hero( // Use Hero widget for image transition animation
                 tag: 'postImage${item.image}',
-                child: Image.file(
-                  File(item.image),
+                child: Image.memory(item.image,
                   fit: BoxFit.cover,
                 ),
               ),

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project/providers/itemproviders.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -48,16 +47,16 @@ class adminAddPost extends ConsumerWidget {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  ref.read(postprovider.notifier).addpost(
-                    DateTime.now().toString(), // Generating an ID based on the current time
-                    descriptionController.text, 
-                    imageUrl
-                  );
-                  // Clear the inputs after posting
-                  locationController.clear();
-                  timeController.clear();
-                  descriptionController.clear();
-                  ref.read(imageProvider.notifier).state = '';  // Clear the image URL
+                  // ref.read(postprovider.notifier).addpost(
+                  //   DateTime.now().toString(), // Generating an ID based on the current time
+                  //   descriptionController.text,
+                  //   imageUrl
+                  // );
+                  // // Clear the inputs after posting
+                  // locationController.clear();
+                  // timeController.clear();
+                  // descriptionController.clear();
+                  // ref.read(imageProvider.notifier).state = '';  // Clear the image URL
                 },
                 child: const Text('Post'),
                 style: ElevatedButton.styleFrom(

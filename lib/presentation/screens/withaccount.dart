@@ -69,7 +69,7 @@ class GridItem extends StatelessWidget {
           children: [
             SizedBox(height: 1),
             Expanded(
-              child: Image.network(
+              child: Image.memory(
                 item.image,  // Ensure the image path is correctly managed
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {

@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter_project/models/commentmodels.dart';
 import 'package:flutter_project/models/items_model.dart';
@@ -29,13 +30,30 @@ class PostNotifier extends StateNotifier<List<Post>>{
   }
 
 
+Future<void> createPost(String description, Uint8List imageData) async {
+    var uri = Uri.parse('http://localhost:3003/items');
+    var request = http.MultipartRequest('POST', uri)
+      ..fields['description'] = description
+      ..files.add(http.MultipartFile.fromBytes(
+        'picture', // Ensure this field matches the name expected by your NestJS backend
+        imageData,
+        filename: 'upload.jpg', // Optional, you can provide filename based on your requirement
+      ));
 
-
-
-  void addpost(String id , String description, String image){
-    final NewPost = Post(id: id, description: description, image: image);
-    state=[...state,NewPost];
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        print('Post created successfully!');
+        fetchPosts(); // Optionally fetch posts again to update the list
+      } else {
+        print('Failed to create post: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error creating post: $e');
+    }
   }
+
+
 
   void editPost(String id, String newDescription) {
   state = state.map((post) {

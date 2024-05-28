@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/commentmodels.dart';
 import 'package:flutter_project/models/items_model.dart'; // Includes your Post and Comment models
@@ -12,7 +14,7 @@ class CommentPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final post = ref.watch(postprovider.select((value) => 
-      value.firstWhere((p) => p.id == postId, orElse: () => Post(id: postId, image: '', description: '', comments: []))
+      value.firstWhere((p) => p.id == postId, orElse: () => Post(id: postId, image: Uint8List(0), description: '', comments: []))
     )); // Find the post by ID
 
     return Scaffold(
