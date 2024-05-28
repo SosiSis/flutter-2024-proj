@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/adminDetail.dart';
-import 'package:flutter_project/presentation/screens/admin_screen/comment_admin.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/create_post_page.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/profile.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/withaccount.dart';
@@ -40,10 +39,8 @@ class MyApp extends StatelessWidget {
           '/profile': (context) => ProfileTwo(),
           '/add': (context) => LostFoundForm(),
           '/home': (context) => HomeScreen(),
-          '/admin_detail':(context) => AdminItemPage(),
-          '/admi_comment':(context) => AdminCommentPage(),
           '/admin_addpost':(context) => adminAddPost(),
-          '/admin_profile':(context) => adminProfile(),
+          '/admin_profile':(context) => adminprofile(),
           '/admin_feed':(context) => adminFeed(),
 
         },
@@ -57,7 +54,22 @@ class MyApp extends StatelessWidget {
               });
           }
 
+          if (settings.name == '/admin_detail'){
+            final Post item = settings.arguments as Post;
+            return MaterialPageRoute(
+              builder: (context){
+                return AdminDetailPage(item: item);
+              });
+          }
+
           if (settings.name == '/comment') {
+          final postId = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) => CommentPage(postId: postId),
+          );
+        }
+
+        if (settings.name == '/admin_comment') {
           final postId = settings.arguments as String;
           return MaterialPageRoute(
             builder: (context) => CommentPage(postId: postId),

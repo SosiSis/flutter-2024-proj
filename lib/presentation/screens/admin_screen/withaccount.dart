@@ -64,7 +64,8 @@ class GridItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Define what happens when a card is tapped
-        Navigator.pushNamed(context, '/admin_detail');
+        Navigator.pushNamed(context, '/admin_detail',
+        arguments: Post(id: item.id, description: item.description, image: item.image,));
       },
       child: Card(
         child: Column(
@@ -99,7 +100,8 @@ class GridItem extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Define what happens when the comment button is pressed
-                    Navigator.pushNamed(context, '/admin_comment');
+                    Navigator.pushNamed(context, '/admin_comment',
+                    arguments: item.id);
                   },
                   child: Icon(Icons.comment),
                   style: ButtonStyle(

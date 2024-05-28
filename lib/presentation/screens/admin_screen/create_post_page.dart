@@ -28,25 +28,6 @@ class adminAddPost extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                controller: locationController,
-                maxLines: 2,
-                decoration: InputDecoration(
-                  labelText: 'Location',
-                  labelStyle: TextStyle(color: Colors.black45),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                ),
-              ),
-              SizedBox(height: 40),
-              TextFormField(
-                controller: timeController,
-                maxLines: 2,
-                decoration: InputDecoration(
-                  labelText: 'Time',
-                  labelStyle: TextStyle(color: Colors.black45),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                ),
-              ),
               SizedBox(height: 40),
               TextFormField(
                 controller: descriptionController,

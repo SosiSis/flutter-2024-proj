@@ -23,5 +23,20 @@ class PostNotifier extends StateNotifier<List<Post>> {
     }).toList();
   }
 
-  // Methods to update or delete posts and comments as needed
+  void deleteCommentFromPost(String postId, String commentId) {
+    state = state.map((post) {
+      if (post.id == postId) {
+        List<Comment> updatedComments = post.comments.where((comment) => comment.id != commentId).toList();
+        return Post(
+          id: post.id,
+          image: post.image,
+          description: post.description,
+          comments: updatedComments,
+        );
+      }
+      return post;
+    }).toList();
+  }
+
+
 }

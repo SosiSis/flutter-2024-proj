@@ -1,116 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/providers/userprovider.dart'; // Correct path to your UserProvider
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-class adminProfile extends StatefulWidget {
-  const adminProfile({Key? key}) : super(key: key);
-
-  @override
-  State<adminProfile> createState() => _ProfileTwoState();
-}
-
-class _ProfileTwoState extends State<adminProfile> {
-  final TextEditingController _name =
-      TextEditingController(text: "Meron fantahun");
-  final TextEditingController _controller =
-      TextEditingController(text: "09919123433");
-  final TextEditingController _email =
-      TextEditingController(text: "@m_fantahun");
-
-  bool _isNameEnabled = false;
-  bool _isPhoneEnabled = false;
-  bool _isEmailEnabled = false;
+class adminprofile extends ConsumerWidget {
+  const adminprofile({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
+    // Controllers initialized directly with user's current information
+    final nameController = TextEditingController(text: user.name);
+    final passwordController = TextEditingController(text: user.password);
+    final emailController = TextEditingController(text: user.email);
+
+    // Update user profile fields and show a snackbar
+    void updateProfile() {
+      ref.read(userProvider.notifier).updateUser(
+        name: nameController.text,
+        password: passwordController.text,
+        email: emailController.text,
+      );
+      // Show a snackbar on success
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Profile Updated Successfully!'),
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue[300],
-        title: Center(child: Text('your Profile',style: TextStyle(color: Colors.white),),),
+        title: const Center(child: Text('Your Profile', style: TextStyle(color: Colors.white))),
       ),
       body: SingleChildScrollView(
-        child: Padding(
         padding: const EdgeInsets.all(30),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                radius: 100.0,
-                child: Icon(
-                  Icons.account_circle,
-                  size: 200,
-                  
-                ),
-              ),
-              const Divider(
-                height: 60,
-                color: Colors.black,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildProfileField("Name", _name, _isNameEnabled),
-                  buildProfileField(
-                      "Phone number", _controller, _isPhoneEnabled),
-                  buildProfileField("Email", _email, _isEmailEnabled),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            
-            ],
-          ),
-        ),
-      ),
-      )
-    );
-  }
-
-  Widget buildProfileField(
-      String label, TextEditingController controller, bool isEnabled) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                letterSpacing: 2.0,
+            const CircleAvatar(radius: 100.0, child: Icon(Icons.account_circle, size: 200)),
+            const Divider(height: 60, color: Colors.black),
+            buildProfileField("Name", nameController),
+            buildProfileField("Password", passwordController),
+            buildProfileField("Email", emailController),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: updateProfile,
+              child: Text("Update Profile"),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.blue[400],
+                textStyle: TextStyle(fontSize: 16)
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  width: 200,
-                  child: TextField(
-                    controller: controller,
-                    enabled: isEnabled,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                    setState(() {
-                      if (label == "Name") {
-                        _isNameEnabled = !_isNameEnabled;
-                      } else if (label == "Phone number") {
-                        _isPhoneEnabled = !_isPhoneEnabled;
-                      } else if (label == "Email") {
-                        _isEmailEnabled = !_isEmailEnabled;
-                      }
-                    });
-                  },
-                )
-              ],
             ),
           ],
         ),
-      ],
+      ),
+    );
+  }
+
+  Widget buildProfileField(String label, TextEditingController controller) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(),
+          suffixIcon: Icon(Icons.edit),
+        ),
+      ),
     );
   }
 }

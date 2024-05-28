@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/providers/itemproviders.dart';  // Ensure this file has the correct provider setup
@@ -71,8 +69,8 @@ class GridItem extends StatelessWidget {
           children: [
             SizedBox(height: 1),
             Expanded(
-              child: Image.file(
-                File(item.image),  // Ensure the image path is correctly managed
+              child: Image.network(
+                item.image,  // Ensure the image path is correctly managed
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Center(child: Icon(Icons.broken_image, size: 50));
