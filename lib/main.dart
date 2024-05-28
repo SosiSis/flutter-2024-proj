@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/adminDetail.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/comment_admin.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/create_post_page.dart';
@@ -37,9 +38,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LogInPage(),
           '/signup': (context) => SignUpPage(),
           '/profile': (context) => ProfileTwo(),
-          '/detail': (context) => ItemPage(),
           '/add': (context) => LostFoundForm(),
-          '/comment': (context) => CommentPage(),
           '/home': (context) => HomeScreen(),
           '/admin_detail':(context) => AdminItemPage(),
           '/admi_comment':(context) => AdminCommentPage(),
@@ -48,6 +47,29 @@ class MyApp extends StatelessWidget {
           '/admin_feed':(context) => adminFeed(),
 
         },
+
+        onGenerateRoute: ((settings) {
+          if (settings.name == '/detail'){
+            final Post item = settings.arguments as Post;
+            return MaterialPageRoute(
+              builder: (context){
+                return ItemPage(item: item);
+              });
+          }
+
+          if (settings.name == '/comment') {
+          final postId = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) => CommentPage(postId: postId),
+          );
+        }
+
+          return null;
+        }),
+
+        
+
+
         home: NoAccount());
   }
 }

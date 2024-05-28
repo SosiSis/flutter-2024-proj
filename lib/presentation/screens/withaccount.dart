@@ -62,7 +62,8 @@ class GridItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Define what happens when a card is tapped
-        Navigator.pushNamed(context, '/detail');
+        Navigator.pushNamed(context, '/detail',
+        arguments: Post(id: item.id, description: item.description, image: item.image,));
       },
       child: Card(
         child: Column(
@@ -82,8 +83,8 @@ class GridItem extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 item.description,
+                maxLines:1,
                 textAlign: TextAlign.center,
-                maxLines: 2,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis,
@@ -97,7 +98,8 @@ class GridItem extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Define what happens when the comment button is pressed
-                    Navigator.pushNamed(context, '/comment');
+                    Navigator.pushNamed(context, '/comment',
+                    arguments: item.id);
                   },
                   child: Icon(Icons.comment),
                   style: ButtonStyle(

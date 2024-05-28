@@ -1,85 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/models/commentmodels.dart';
+import 'package:flutter_project/models/items_model.dart'; // Includes your Post and Comment models
+import 'package:flutter_project/providers/itemproviders.dart'; // Includes your postProvider
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CommentPage extends StatefulWidget {
-  @override
-  _CommentPageState createState() => _CommentPageState();
-}
+class CommentPage extends ConsumerWidget {
+  final String postId; // Assume the post ID is passed to this widget
 
-class _CommentPageState extends State<CommentPage> {
-  List<Map<String, String>> filedata = [
-    {
-      'name': 'Nahusenay',
-      'message':
-          "Thank you for posting! I lost my keys near the park yesterday. Could you please describe any unique features of the key? I can confirm if it's mine.",
-    },
-    {
-      'name': 'Liya Abebe',
-      'message': 'Very cool',
-    },
-    {
-      'name': 'Abel Daniel',
-      'message': 'Do the keys have ',
-    },
-    {
-      'name': 'Dagmawi Elias',
-      'message': 'Your phone is not working how can I contact you',
-    },
-  ];
-
-  Widget commentChild(List<Map<String, String>> data) {
-    return ListView.builder(
-      itemCount: data.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
-          child: ListTile(
-            title: Text(
-              data[index]['name']!,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(data[index]['message']!),
-          ),
-        );
-      },
-    );
-  }
+  CommentPage({required this.postId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final post = ref.watch(postprovider.select((value) => 
+      value.firstWhere((p) => p.id == postId, orElse: () => Post(id: postId, image: '', description: '', comments: []))
+    )); // Find the post by ID
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[300],
-        actions: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-            child: Text('comments',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19,color: Colors.white,letterSpacing: 1.3),) ,
-
-          )
-        
-        ],
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
+        title: Text('Comments'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Column(
         children: [
           Expanded(
-            child: commentChild(filedata),
+            child: ListView.builder(
+              itemCount: post.comments.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(post.comments[index].userId, style: TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: Text(post.comments[index].content),
+                );
+              },
+            ),
           ),
-          const Divider(),
+          Divider(),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: CustomCommentBox(
               labelText: 'Add a comment...',
               errorText: 'Please enter a comment',
               sendButtonMethod: (commentText) {
-                setState(() {
-                  var value = {
-                    'name': 'User ',
-                    'message': commentText,
-                  };
-                  filedata.insert(0, value);
-                });
+                if (commentText.trim().isNotEmpty) {
+                  ref.read(postprovider.notifier).addCommentToPost(postId, Comment(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    userId: 'User', // Example user ID, replace as needed
+                    content: commentText,
+                    timestamp: DateTime.now(),
+                  ));
+                }
               },
             ),
           ),
@@ -94,7 +66,7 @@ class CustomCommentBox extends StatelessWidget {
   final String errorText;
   final Function(String) sendButtonMethod;
 
-  const CustomCommentBox({
+  CustomCommentBox({
     required this.labelText,
     required this.errorText,
     required this.sendButtonMethod,
@@ -116,18 +88,10 @@ class CustomCommentBox extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.send, color: Colors.blue), // Change icon color
+          icon: Icon(Icons.send, color: Colors.blue),
           onPressed: () {
-            if (commentController.text.trim().isNotEmpty) {
-              sendButtonMethod(commentController.text);
-              commentController.clear();
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(errorText),
-                ),
-              );
-            }
+            sendButtonMethod(commentController.text);
+            commentController.clear();
           },
         ),
       ],
