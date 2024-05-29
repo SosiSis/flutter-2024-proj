@@ -6,6 +6,15 @@ class User {
 
   User({required this.id, required this.name, required this.email, required this.password});
 
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      name: json['fullname'],
+      email: json['email'],
+      password: json['password'],
+      id: json['id'],
+    );
+  }
   // Method to update user data
   User copyWith({String? name, String? email, String? password}) {
     return User(

@@ -26,7 +26,7 @@ class PostNotifier extends StateNotifier<List<Post>>{
   Future<void> createPost(String description, Uint8List imageData) async {
     try {
       await repository.createPost(description, imageData);
-      fetchPosts(); // Refresh the list after adding a new post
+      await fetchPosts(); // Refresh the list after adding a new post
     } catch (e) {
       print('Error creating post: $e');
     }
