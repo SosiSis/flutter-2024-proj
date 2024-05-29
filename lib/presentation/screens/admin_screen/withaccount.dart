@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class adminFeed extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final posts = ref.watch(postprovider);  // Watching the posts state managed by Riverpod
+    final posts = ref.watch(postProvider);  // Watching the posts state managed by Riverpod
 
     return Scaffold(
       backgroundColor: Colors.blue[100],

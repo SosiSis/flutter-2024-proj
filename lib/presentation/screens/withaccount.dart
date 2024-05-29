@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/providers/itemproviders.dart';  // Ensure this file has the correct provider setup
@@ -6,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class WithAccount extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final posts = ref.watch(postprovider);  // Watching the posts state managed by Riverpod
+    final posts = ref.watch(postProvider);  // Watching the posts state managed by Riverpod
 
     return Scaffold(
       backgroundColor: Colors.blue[100],

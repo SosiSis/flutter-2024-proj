@@ -55,7 +55,7 @@ class LostFoundForm extends ConsumerWidget {
                   }
                   try {
                     Uint8List imageData = await File(imageUrl).readAsBytes();
-                    await ref.read(postprovider.notifier).createPost(descriptionController.text, imageData);
+                    await ref.read(postProvider.notifier).createPost(descriptionController.text, imageData);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Post created successfully!')));
 
                     // Clear the form fields after successful post creation

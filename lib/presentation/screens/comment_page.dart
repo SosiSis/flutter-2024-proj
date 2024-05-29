@@ -13,7 +13,7 @@ class CommentPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final post = ref.watch(postprovider.select((value) => 
+    final post = ref.watch(postProvider.select((value) => 
       value.firstWhere((p) => p.id == postId, orElse: () => Post(id: postId, image: Uint8List(0), description: '', comments: []))
     )); // Find the post by ID
 
@@ -47,7 +47,7 @@ class CommentPage extends ConsumerWidget {
               errorText: 'Please enter a comment',
               sendButtonMethod: (commentText) {
                 if (commentText.trim().isNotEmpty) {
-                  ref.read(postprovider.notifier).addCommentToPost(postId, Comment(
+                  ref.read(postProvider.notifier).addCommentToPost(postId, Comment(
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
                     userId: 'User', // Example user ID, replace as needed
                     content: commentText,
