@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/models/items_model.dart'; // Make sure this contains the Post model
+import 'package:flutter_project/models/items_model.dart';
+import 'package:go_router/go_router.dart'; // Make sure this contains the Post model
 
 class ItemPage extends StatelessWidget {
   final Post item;
@@ -22,7 +23,7 @@ class ItemPage extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            context.pop();
           },
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -56,7 +57,7 @@ class ItemPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 80, vertical: 10),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/comment',arguments: item.id); // Navigate to comments
+                  context.push('/comment/${item.id}');
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

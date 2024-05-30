@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/providers/itemproviders.dart';  // Ensure this file has the correct provider setup
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class WithAccount extends ConsumerWidget {
   @override
@@ -27,7 +28,7 @@ class WithAccount extends ConsumerWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            context.pop();
           },
           icon: Icon(Icons.arrow_back),
           iconSize: 30,
@@ -62,8 +63,8 @@ class GridItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Define what happens when a card is tapped
-        Navigator.pushNamed(context, '/detail',
-        arguments: Post(id: item.id, description: item.description, image: item.image,));
+        context.push('/detail/${item.id}');
+
       },
       child: Card(
         child: Column(
@@ -98,8 +99,7 @@ class GridItem extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Define what happens when the comment button is pressed
-                    Navigator.pushNamed(context, '/comment',
-                    arguments: item.id);
+                    context.push('/comment/${item.id}');
                   },
                   child: Icon(Icons.comment),
                   style: ButtonStyle(
@@ -113,5 +113,8 @@ class GridItem extends StatelessWidget {
         ),
       ),
     );
+
+    
   }
+  
 }

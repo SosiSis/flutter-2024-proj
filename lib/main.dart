@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/adminDetail.dart';
@@ -8,80 +6,146 @@ import 'package:flutter_project/presentation/screens/admin_screen/profile.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/withaccount.dart';
 import 'package:flutter_project/presentation/screens/comment_page.dart';
 import 'package:flutter_project/presentation/screens/create_post_page.dart';
+import 'package:flutter_project/presentation/screens/detailpage.dart';
 import 'package:flutter_project/presentation/screens/login.dart';
 import 'package:flutter_project/presentation/screens/noaccount.dart';
 import 'package:flutter_project/presentation/screens/profile.dart';
 import 'package:flutter_project/presentation/screens/signup.dart';
 import 'package:flutter_project/presentation/screens/withaccount.dart';
 import 'package:flutter_project/presentation/widgets/nav.dart';
+import 'package:flutter_project/repositories/api_post_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'presentation/screens/detailpage.dart';
+import 'package:go_router/go_router.dart';
+// import other necessary screens and models
 
 void main() {
-  runApp(ProviderScope(child: MyApp(),));
+  runApp(ProviderScope(child: MyApp()));
+
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+  final ApiPostRepository postRepository = ApiPostRepository();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        initialRoute: '/',
-        routes: {
-          '/noaccount': (context) => NoAccount(),
-          '/withaccount': (context) => WithAccount(),
-          '/login': (context) => LogInPage(),
-          '/signup': (context) => SignUpPage(),
-          '/profile': (context) => ProfileTwo(),
-          '/add': (context) => LostFoundForm(),
-          '/home': (context) => HomeScreen(),
-          '/admin_addpost':(context) => adminAddPost(),
-          '/admin_profile':(context) => adminprofile(),
-          '/admin_feed':(context) => adminFeed(),
+    final GoRouter _router = GoRouter(
+      initialLocation: '/',
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => NoAccount(),
+        ),
+        GoRoute(
+          path: '/noaccount',
+          builder: (context, state) => NoAccount(),
+        ),
+        GoRoute(
+          path: '/home',
+          builder: (context, state) => HomeScreen(),
+        ),
+        GoRoute(
+          path: '/withaccount',
+          builder: (context, state) => WithAccount(),
+        ),
+        GoRoute(
+          path: '/login',
+          builder: (context, state) => LogInPage(),
+        ),
+        GoRoute(
+          path: '/signup',
+          builder: (context, state) => SignUpPage(),
+        ),
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => ProfileTwo(),
+        ),
+        GoRoute(
+          path: '/add',
+          builder: (context, state) => LostFoundForm(),
+        ),
+        GoRoute(
+          path: '/admin_addpost',
+          builder: (context, state) => adminAddPost(),
+        ),
+        GoRoute(
+          path: '/admin_profile',
+          builder: (context, state) => adminprofile(),
+        ),
+        GoRoute(
+          path: '/admin_feed',
+          builder: (context, state) => adminFeed(),
+        ),
+        GoRoute(
+          path: '/detail/:postId',
+          builder: (context, state) {
+            final String postId = state.params['postId']!;
+            return FutureBuilder<Post>(
+              future: postRepository.getPostById(postId), // Correctly using the instance
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  return ItemPage(item: snapshot.data!); // Ensure your ItemPage takes a Post object
+                } else {
+                  return const Text('Post not found');
+                }
+              },
+            );
+          },
+        ),
 
-        },
+        GoRoute(
+          path: '/detail/:postId',
+          builder: (context, state) {
+            final String postId = state.params['postId']!;
+            return FutureBuilder<Post>(
+              future: postRepository.getPostById(postId), // Correctly using the instance
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  return AdminDetailPage(item: snapshot.data!); // Ensure your ItemPage takes a Post object
+                } else {
+                  return const Text('Post not found');
+                }
+              },
+            );
+          },
+        ),
 
-        onGenerateRoute: ((settings) {
-          if (settings.name == '/detail'){
-            final Post item = settings.arguments as Post;
-            return MaterialPageRoute(
-              builder: (context){
-                return ItemPage(item: item);
-              });
-          }
+        GoRoute(
+          path: '/comment/:postId',
+          builder: (context, state) {
+            final postId = state.params['postId']!;
+            return CommentPage(postId: postId);
+          },
+        ),
+        GoRoute(
+          path: '/admin_comment/:postId',
+          builder: (context, state) {
+            final postId = state.params['postId']!;
+            return CommentPage(postId: postId);
+          },
+        ),
+      ],
+      errorBuilder: (context, state) => Scaffold(
+        appBar: AppBar(title: Text('Page Not Found')),
+        body: Center(
+          child: Text('Error: ${state.error}'),
+        ),
+      ),
+    );
 
-          if (settings.name == '/admin_detail'){
-            final Post item = settings.arguments as Post;
-            return MaterialPageRoute(
-              builder: (context){
-                return AdminDetailPage(item: item);
-              });
-          }
-
-          if (settings.name == '/comment') {
-          final postId = settings.arguments as String;
-          return MaterialPageRoute(
-            builder: (context) => CommentPage(postId: postId),
-          );
-        }
-
-        if (settings.name == '/admin_comment') {
-          final postId = settings.arguments as String;
-          return MaterialPageRoute(
-            builder: (context) => CommentPage(postId: postId),
-          );
-        }
-
-          return null;
-        }),
-
-        
-
-
-        home: NoAccount());
+    return MaterialApp.router(
+      title: 'Flutter Demo',
+      routerDelegate: _router.routerDelegate,
+      routeInformationParser: _router.routeInformationParser,
+      debugShowCheckedModeBanner: false,
+    );
   }
 }

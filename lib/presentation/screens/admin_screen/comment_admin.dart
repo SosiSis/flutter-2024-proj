@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AdminCommentPage extends StatefulWidget {
   @override
@@ -71,7 +72,7 @@ class _AdminCommentPageState extends State<AdminCommentPage> {
         
         ],
         leading: IconButton(onPressed: (){
-          Navigator.pop(context);
+          context.pop();
         }, icon: Icon(Icons.arrow_back,),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),),
       ),
       body: Column(

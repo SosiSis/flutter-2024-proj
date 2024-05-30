@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart'; // Make sure this contains the Post model
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 
 class AdminDetailPage extends ConsumerStatefulWidget {
@@ -43,7 +44,7 @@ void didChangeDependencies() {
         backgroundColor: Colors.blue[300],
         title: Text('Item Details', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white)),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
         ),
@@ -111,14 +112,14 @@ void didChangeDependencies() {
           actions: [
             TextButton(
               child: Text('Cancel'),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
             ),
             TextButton(
               child: Text('Delete'),
               onPressed: () {
                 // ref.read(postProvider.notifier).deletepost(postId);
-                Navigator.of(context).pop();
-                Navigator.of(context).pop(); // Also close the detail page
+                context.pop();
+                context.pop(); // Also close the detail page
               },
             ),
           ],

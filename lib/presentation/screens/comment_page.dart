@@ -5,6 +5,7 @@ import 'package:flutter_project/models/commentmodels.dart';
 import 'package:flutter_project/models/items_model.dart'; // Includes your Post and Comment models
 import 'package:flutter_project/providers/itemproviders.dart'; // Includes your postProvider
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CommentPage extends ConsumerWidget {
   final String postId; // Assume the post ID is passed to this widget
@@ -23,7 +24,7 @@ class CommentPage extends ConsumerWidget {
         title: Text('Comments'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
         ),
       ),
       body: Column(

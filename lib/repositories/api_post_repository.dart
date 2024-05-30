@@ -39,6 +39,8 @@ class ApiPostRepository implements PostRepository {
     }
   }
 
+  
+
   @override
   Future<void> updatePost(String postId, String newDescription) async {
     var response = await http.patch(Uri.parse('$baseUrl/$postId'), 
@@ -57,4 +59,21 @@ class ApiPostRepository implements PostRepository {
       throw Exception('Failed to delete post');
     }
   }
+
+
+  
+@override
+  Future<Post> getPostById(String postId) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/$postId'));
+      if (response.statusCode == 200) {
+        return Post.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to load post with ID $postId');
+      }
+    } catch (e) {
+      throw Exception('Error fetching post with ID $postId: $e');
+    }
+  }
 }
+

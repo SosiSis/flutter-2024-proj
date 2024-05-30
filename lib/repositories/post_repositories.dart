@@ -8,4 +8,5 @@ abstract class PostRepository {
   Future<void> createPost(String description, Uint8List imageData);
   Future<void> updatePost(String postId, String newDescription);
   Future<void> deletePost(String postId);
+  Future<Post> getPostById(String postId);
 }

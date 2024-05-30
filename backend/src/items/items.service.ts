@@ -17,6 +17,11 @@ export class ItemsService {
 
     }
 
+    async findById(id: string): Promise<items> {
+      return this.itemsModel.findById(id).exec();
+    }
+    
+
     async create(items:items):Promise<items>{
       const res = await this.itemsModel.create(items)
       return res

@@ -15,6 +15,11 @@ export class ItemsController {
     return this.itemsService.findAll();
   }
 
+  @Get(':id') // New route to get an item by ID
+  async getItemById(@Param('id') id: string): Promise<items> {
+    return this.itemsService.findById(id);
+  }
+
   @Post()
   @UseInterceptors(FileInterceptor('picture'))
   async createItem(

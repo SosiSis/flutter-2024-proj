@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LogInPage extends StatelessWidget {
   
@@ -47,7 +48,7 @@ class LogInPage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.pushNamed(context, '/signup');
+                        context.push('/signup');
                       },
                       child: Text(
                       'I do not have account',
@@ -66,7 +67,7 @@ class LogInPage extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/home');
+                        context.push('/home');
                       },
                       child: Text(
                         'Log In',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/providers/authprovider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Ensure you have this import for Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart'; // Ensure you have this import for Riverpod
 
 class SignUpPage extends ConsumerWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class SignUpPage extends ConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      context.push('/login');
                     },
                     child: Text(
                       'I already have an account',
@@ -80,7 +81,7 @@ class SignUpPage extends ConsumerWidget {
                             .read(authNotifierProvider.notifier)
                             .signUp(fullName, email, password);
 
-                        Navigator.pushNamed(context, '/home');
+                        context.push('/home');
                       } catch(e) {
                         print("Sign-up failed");
                       }

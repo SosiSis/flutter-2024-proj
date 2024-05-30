@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NoAccount extends StatelessWidget {
   final List<Item> items = [
@@ -46,7 +47,7 @@ class NoAccount extends StatelessWidget {
           // *********************    navigation to the login page here
             TextButton(
               onPressed: (){
-                Navigator.pushNamed(context, '/login');
+                context.push('/login');
                 
               },
               child:
@@ -117,11 +118,11 @@ class GridItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                context.push('/login');
               }, icon: Icon(Icons.read_more),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)),),
 
               IconButton(onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                context.push('/login');
               }, icon: Icon(Icons.comment),style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.blue)))
             ],
           ),
