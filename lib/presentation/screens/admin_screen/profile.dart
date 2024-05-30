@@ -19,6 +19,7 @@ class adminprofile extends ConsumerWidget {
         name: nameController.text,
         password: passwordController.text,
         email: emailController.text,
+        id: 'id',
       );
       // Show a snackbar on success
       ScaffoldMessenger.of(context).showSnackBar(
