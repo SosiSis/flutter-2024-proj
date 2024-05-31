@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/items_model.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/adminDetail.dart';
+import 'package:flutter_project/presentation/screens/admin_screen/basepage.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/create_post_page.dart';
 import 'package:flutter_project/presentation/screens/admin_screen/profile.dart';
-import 'package:flutter_project/presentation/screens/admin_screen/withaccount.dart';
 import 'package:flutter_project/presentation/screens/comment_page.dart';
 import 'package:flutter_project/presentation/screens/create_post_page.dart';
 import 'package:flutter_project/presentation/screens/detailpage.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_project/presentation/screens/login.dart';
 import 'package:flutter_project/presentation/screens/noaccount.dart';
 import 'package:flutter_project/presentation/screens/profile.dart';
 import 'package:flutter_project/presentation/screens/signup.dart';
+import 'package:flutter_project/presentation/screens/userdetailpage.dart';
 import 'package:flutter_project/presentation/screens/withaccount.dart';
 import 'package:flutter_project/presentation/widgets/nav.dart';
 import 'package:flutter_project/repositories/api_post_repository.dart';
@@ -30,12 +31,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GoRouter _router = GoRouter(
-      initialLocation: '/',
       routes: [
         GoRoute(
           path: '/',
           builder: (context, state) => NoAccount(),
         ),
+        GoRoute(
+              path: '/user-details',
+              builder: (context, state) => UserDetailsPage(),
+            ),
         GoRoute(
           path: '/noaccount',
           builder: (context, state) => NoAccount(),
@@ -73,8 +77,8 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => adminprofile(),
         ),
         GoRoute(
-          path: '/admin_feed',
-          builder: (context, state) => adminFeed(),
+          path: '/admin_home',
+          builder: (context, state) => adminbasescreen(),
         ),
         GoRoute(
           path: '/detail/:postId',
@@ -98,7 +102,7 @@ class MyApp extends StatelessWidget {
         ),
 
         GoRoute(
-          path: '/detail/:postId',
+          path: '/admin_detail/:postId',
           builder: (context, state) {
             final String postId = state.params['postId']!;
             return FutureBuilder<Post>(
@@ -146,6 +150,7 @@ class MyApp extends StatelessWidget {
       routerDelegate: _router.routerDelegate,
       routeInformationParser: _router.routeInformationParser,
       debugShowCheckedModeBanner: false,
+      routeInformationProvider: _router.routeInformationProvider
     );
   }
 }

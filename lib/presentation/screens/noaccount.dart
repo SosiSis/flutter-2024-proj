@@ -2,41 +2,18 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project/models/items_model.dart';
+import 'package:flutter_project/providers/itemproviders.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class NoAccount extends StatelessWidget {
-  final List<Item> items = [
-    Item(
-      imageUrl: 'https://www.jumio.com/app/uploads/2020/10/ID-US.png',
-    ),
-    Item(
-      imageUrl:
-          'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-    ),
-    Item(
-      imageUrl:
-          'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-    ),
-    Item(
-      imageUrl:
-          'https://th.bing.com/th/id/OIP.3l2nfzcHhMemSZooiH3B3AHaFj?rs=1&pid=ImgDetMain',
-    ),
-    Item(
-      imageUrl:
-          'https://th.bing.com/th/id/OIP.3l2nfzcHhMemSZooiH3B3AHaFj?rs=1&pid=ImgDetMain',
-    ),
-    Item(
-      imageUrl:
-          'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-    ),
-    Item(
-      imageUrl:
-          'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
-    ),
-  ];
+class NoAccount extends ConsumerWidget {
+
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final posts = ref.watch(postProvider);
 
     return Scaffold(
         backgroundColor: Colors.blue[100],
@@ -73,9 +50,9 @@ class NoAccount extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 33,
-          children: List.generate(items.length, (index) {
+          children: List.generate(posts.length, (index) {
             return GridItem(
-              item: items[index],
+              item: posts[index],
 
             );
           }),
@@ -93,7 +70,7 @@ class Item {
 }
 
 class GridItem extends StatelessWidget {
-  final Item item;
+  final Post item;
 
   GridItem({required this.item});
 
@@ -109,9 +86,9 @@ class GridItem extends StatelessWidget {
           SizedBox(height: 7),
           Expanded(
             
-            child: Image.network(
-              item.imageUrl,
-              fit: BoxFit.contain,
+            child: Image.memory(
+              item.image,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Row(

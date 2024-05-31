@@ -48,24 +48,7 @@ void didChangeDependencies() {
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
         ),
-        actions: [
-          // IconButton(
-          //   icon: Icon(_isEditing ? Icons.check : Icons.edit),
-          //   onPressed: () {
-          //     if (_isEditing) {
-          //       // Save the changes
-          //       ref.read(postProvider.notifier).editPost(widget.item.id, _descriptionController.text);
-          //       setState(() => _isEditing = false);
-          //     } else {
-          //       setState(() => _isEditing = true);
-          //     }
-          //   },
-          // ),
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () => _deletePost(context, ref, widget.item.id),
-          ),
-        ],
+  
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
@@ -76,7 +59,7 @@ void didChangeDependencies() {
               height: 300,
               child: Hero(
                 tag: 'postImage${widget.item.image}',
-                child: Image.memory(widget.item.image, fit: BoxFit.cover),
+                child: Image.memory(widget.item.image, fit: BoxFit.fitWidth),
               ),
             ),
             Padding(
@@ -96,6 +79,20 @@ void didChangeDependencies() {
                       textAlign: TextAlign.center,
                     ),
             ),
+
+            Row(
+              children: [
+                IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () => {}
+            // _editPost(context, ref, widget.item.id),
+                ),
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () => _deletePost(context, ref, widget.item.id),
+          ),
+              ],
+            )
           ],
         ),
       ),
@@ -117,7 +114,7 @@ void didChangeDependencies() {
             TextButton(
               child: Text('Delete'),
               onPressed: () {
-                // ref.read(postProvider.notifier).deletepost(postId);
+                // ref.read(postProvider.notifier).deletePost(postId);
                 context.pop();
                 context.pop(); // Also close the detail page
               },

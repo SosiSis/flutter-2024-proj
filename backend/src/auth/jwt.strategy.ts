@@ -1,17 +1,15 @@
-//jwt.startegy.ts
-
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { user } from './schemas/user.schema';
+import { User } from './schemas/user.schema'; // Adjust the import path as needed
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
-    @InjectModel('user')
-    private userModel: Model<user & Document>, // Include Document in the type
+    @InjectModel(User.name)
+    private userModel: Model<User>, 
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -20,16 +18,14 @@ export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
   }
 
   async validate(payload: any): Promise<any> {
-    const { id } = payload;
+    console.log('JWT Payload:', payload); // Log the payload
+    const { id } = payload; // Ensure payload contains `id` field
 
     const user = await this.userModel.findById(id).select('+roles');
     if (!user) {
       throw new UnauthorizedException('Login first to access this endpoint.');
     }
 
-    // Use type assertion to inform TypeScript about the shape of the user object
-    const userObject = user.toObject() as user & { roles: string[] };
-
-    return userObject;
+    return { userId: user._id, roles: user.roles }; // Return userId and roles
   }
 }

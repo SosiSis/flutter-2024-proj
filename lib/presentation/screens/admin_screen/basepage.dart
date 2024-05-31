@@ -1,18 +1,18 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project/presentation/screens/create_post_page.dart';
-import 'package:flutter_project/presentation/screens/userdetailpage.dart';
-import 'package:flutter_project/presentation/screens/withaccount.dart';
+import 'package:flutter_project/presentation/screens/admin_screen/adminfeed.dart';
+import 'package:flutter_project/presentation/screens/admin_screen/create_post_page.dart';
+import 'package:flutter_project/presentation/screens/admin_screen/profile.dart';
 
-class HomeScreen extends StatefulWidget {
+class adminbasescreen extends StatefulWidget {
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<adminbasescreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<adminbasescreen> {
   int myindex = 0;
-  List<Widget> widgetList = [WithAccount(), LostFoundForm(), UserDetailsPage()];
+  List<Widget> widgetList = [adminFeed(), adminAddPost(), adminprofile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

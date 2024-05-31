@@ -12,7 +12,7 @@ class User {
       name: json['fullname'],
       email: json['email'],
       password: json['password'],
-      id: json['id'],
+      id: json['_id'],
     );
   }
   // Method to update user data

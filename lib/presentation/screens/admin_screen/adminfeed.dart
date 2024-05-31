@@ -63,7 +63,7 @@ class GridItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Define what happens when a card is tapped
-        context.push('/detail/${item.id}');
+        context.push('/admin_detail/${item.id}');
 
       },
       child: Card(
@@ -73,7 +73,7 @@ class GridItem extends StatelessWidget {
             SizedBox(height: 1),
             Expanded(
               child: Image.memory(item.image,  // Ensure the image path is correctly managed
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
                 errorBuilder: (context, error, stackTrace) {
                   return Center(child: Icon(Icons.broken_image, size: 50));
                 },
@@ -98,7 +98,7 @@ class GridItem extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Define what happens when the comment button is pressed
-                    context.push('/comment/${item.id}');
+                    context.push('/admin_comment/${item.id}');
 
                   },
                   child: Icon(Icons.comment),

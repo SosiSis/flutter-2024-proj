@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/providers/authnotifier.dart';
 import 'package:flutter_project/providers/authprovider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart'; // Ensure you have this import for Riverpod
+import 'package:go_router/go_router.dart';
 
 class SignUpPage extends ConsumerWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authStateProvider);
     final fullNameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
@@ -25,11 +25,13 @@ class SignUpPage extends ConsumerWidget {
               margin: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  Text("Sign Up",
-                      style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
+                  Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                   TextFormField(
                     controller: fullNameController,
                     decoration: const InputDecoration(
@@ -70,27 +72,29 @@ class SignUpPage extends ConsumerWidget {
                   ),
                   SizedBox(height: 16.0),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
                     onPressed: () async {
-                      if (!authState.isAuthenticated) {
-                        final fullName = fullNameController.text;
-                        final email = emailController.text;
-                        final password = passwordController.text;
+                      final fullName = fullNameController.text;
+                      final email = emailController.text;
+                      final password = passwordController.text;
 
-                        try {
-                          await ref
+                      try {
+                        await ref
                             .read(authNotifierProvider.notifier)
                             .signUp(fullName, email, password);
 
-                        context.push('/home');
-                      } catch(e) {
-                        print("Sign-up failed");
-                      }
+                        final token = await getToken(); // Retrieve token to verify storage
+                        print('Token after signup: $token'); // Debug statement
 
-                        }
-                        
+                        context.go('/user-details'); // Navigate to user details page after signup
+                      } catch (e) {
+                        print("Sign-up failed: $e");
+                      }
                     },
                     child: Text(
-                      'Submit',
+                      'Sign Up',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
