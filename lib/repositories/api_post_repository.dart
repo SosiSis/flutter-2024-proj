@@ -9,6 +9,9 @@ import 'package:http/http.dart' as http;
 class ApiPostRepository implements PostRepository {
   final String baseUrl = 'http://localhost:3003/items';
 
+
+  // fetch post
+
   @override
   Future<List<Post>> fetchPosts() async {
     try {
@@ -23,6 +26,10 @@ class ApiPostRepository implements PostRepository {
       throw Exception('Error fetching posts: $e');
     }
   }
+
+
+// create post
+
 
   @override
   Future<void> createPost(String description, Uint8List imageData) async {
@@ -40,6 +47,7 @@ class ApiPostRepository implements PostRepository {
   }
 
   
+  // update post
 
   @override
   Future<void> updatePost(String postId, String newDescription) async {
@@ -52,6 +60,8 @@ class ApiPostRepository implements PostRepository {
     }
   }
 
+
+
   @override
   Future<void> deletePost(String postId) async {
     var response = await http.delete(Uri.parse('$baseUrl/$postId'));
@@ -61,7 +71,8 @@ class ApiPostRepository implements PostRepository {
   }
 
 
-  
+// getpostbyID
+
 @override
   Future<Post> getPostById(String postId) async {
     try {
