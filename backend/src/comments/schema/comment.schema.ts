@@ -1,10 +1,12 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+// src/comments/schemas/comment.schema.ts
+import * as mongoose from 'mongoose';
 
-@Schema({ timestamps: true })
-export class Comment extends Document {
-  @Prop({ required: true })
-  comment: string;
+export const CommentSchema = new mongoose.Schema({
+  postId: mongoose.Schema.Types.ObjectId,  // Link to Post model if needed
+  content: String,
+}, { timestamps: true });
+
+export interface Comment extends mongoose.Document {
+  postId: mongoose.Types.ObjectId;
+  content: string;
 }
-
-export const CommentSchema = SchemaFactory.createForClass(Comment);

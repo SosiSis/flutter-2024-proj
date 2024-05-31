@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { RolesGuard } from './auth/roles/role.guard';
 import { UserSchema } from './auth/schemas/user.schema';
+import { CommentModule } from './comments/comment.module';
 import { ItemsModule } from './items/items.module';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
@@ -28,7 +29,8 @@ import { UserService } from './user/user.service';
     UserModule,
     ItemsModule,
     AuthModule,
-    UserModule],
+    UserModule,
+    CommentModule],
     
   controllers: [AppController,UserController],
   providers: [AppService,{

@@ -1,103 +1,76 @@
-import 'dart:typed_data';
-
+// comment_page.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_project/models/commentmodels.dart';
-import 'package:flutter_project/models/items_model.dart'; // Includes your Post and Comment models
-import 'package:flutter_project/providers/itemproviders.dart'; // Includes your postProvider
+import 'package:flutter_project/providers/commentprovider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-class CommentPage extends ConsumerWidget {
-  final String postId; // Assume the post ID is passed to this widget
+class CommentPage extends ConsumerStatefulWidget {
+  final String postId;
 
-  CommentPage({required this.postId});
+  const CommentPage({Key? key, required this.postId}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final post = ref.watch(postProvider.select((value) => 
-      value.firstWhere((p) => p.id == postId, orElse: () => Post(id: postId, image: Uint8List(0), description: '', comments: []))
-    )); // Find the post by ID
+  _CommentPageState createState() => _CommentPageState();
+}
+
+class _CommentPageState extends ConsumerState<CommentPage> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(commentNotifierProvider.notifier).fetchComments(widget.postId);
+  }
+
+  Future<void> _addComment() async {
+    final userId = 'current_user_id'; // Retrieve the current user's ID
+    final content = _controller.text;
+    await ref.read(commentNotifierProvider.notifier).addComment(widget.postId, userId, content);
+    _controller.clear(); // Clear the input field after adding a comment
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final comments = ref.watch(commentNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue[300],
         title: Text('Comments'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
-        ),
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: post.comments.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(post.comments[index].userId, style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text(post.comments[index].content),
-                );
-              },
-            ),
+            child: comments.isEmpty
+                ? Center(child: Text('No comments yet.'))
+                : ListView.builder(
+                    itemCount: comments.length,
+                    itemBuilder: (context, index) {
+                      final comment = comments[index];
+                      return ListTile(
+                        title: Text(comment.content),
+                        subtitle: Text(comment.createdAt.toString()),
+                      );
+                    },
+                  ),
           ),
-          Divider(),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CustomCommentBox(
-              labelText: 'Add a comment...',
-              errorText: 'Please enter a comment',
-              sendButtonMethod: (commentText) {
-                if (commentText.trim().isNotEmpty) {
-                  ref.read(postProvider.notifier).addCommentToPost(postId, Comment(
-                    id: DateTime.now().millisecondsSinceEpoch.toString(),
-                    userId: 'User', // Example user ID, replace as needed
-                    content: commentText,
-                    timestamp: DateTime.now(),
-                  ));
-                }
-              },
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(labelText: 'Add a comment'),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: _addComment,
+                ),
+              ],
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class CustomCommentBox extends StatelessWidget {
-  final String labelText;
-  final String errorText;
-  final Function(String) sendButtonMethod;
-
-  CustomCommentBox({
-    required this.labelText,
-    required this.errorText,
-    required this.sendButtonMethod,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final TextEditingController commentController = TextEditingController();
-
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: commentController,
-            decoration: InputDecoration(
-              labelText: labelText,
-              border: OutlineInputBorder(),
-            ),
-          ),
-        ),
-        IconButton(
-          icon: Icon(Icons.send, color: Colors.blue),
-          onPressed: () {
-            sendButtonMethod(commentController.text);
-            commentController.clear();
-          },
-        ),
-      ],
     );
   }
 }

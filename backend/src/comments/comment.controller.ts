@@ -1,48 +1,27 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, UseGuards } from '@nestjs/common';
+// src/comments/comment.controller.ts
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CommentService } from './comment.service';
-import { CreateCommentDto } from './dto//create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
-import { Comment } from './schema/comment.schema';
-import { RolesGuard } from 'src/auth/roles/role.guard';
-import { AuthGuard } from '@nestjs/passport';
-import { Roles } from 'src/auth/roles/role.decorator';
-import { Role } from 'src/auth/roles/role.enum';
 
 @Controller('comments')
+
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
-  async create(@Body() createCommentDto: CreateCommentDto): Promise<Comment> {
-    return this.commentService.create(createCommentDto);
+  async addComment(
+    @Body('postId') postId: string,
+    @Body('content') content: string,
+  ) {
+    return this.commentService.createComment(postId, content);
   }
 
-  @Get()
-  async findAll(): Promise<Comment[]> {
-    return this.commentService.findAll();
+  @Get('test')
+  testRoute() {
+    return { message: 'This is a test route' };
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Comment> {
-    return this.commentService.findOne(id);
+  @Get(':postId')
+  async getComments(@Param('postId') postId: string) {
+    return this.commentService.findCommentsByPost(postId);
   }
-
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateCommentDto: UpdateCommentDto,
-  ): Promise<Comment> {
-    return this.commentService.update(id, updateCommentDto);
-  }
-
-  @Delete(':id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.Admin)
-  async deleteItem(
-    @Param('id') id: string
-  ): Promise<Comment> {
-    return this.commentService.remove(id);
-  }
-
-  
 }

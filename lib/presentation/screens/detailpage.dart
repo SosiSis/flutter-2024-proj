@@ -21,13 +21,7 @@ class ItemPage extends StatelessWidget {
               letterSpacing: 1.3,
             ),),
         ),
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: Icon(Icons.arrow_back),
-          color: Colors.white,
-        ),
+        
       ),
       body: SingleChildScrollView( // Use SingleChildScrollView for better scroll behavior
         child: Column(

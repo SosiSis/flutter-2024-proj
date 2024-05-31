@@ -76,27 +76,61 @@ class SignUpPage extends ConsumerWidget {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                     ),
                     onPressed: () async {
-                      final fullName = fullNameController.text;
-                      final email = emailController.text;
-                      final password = passwordController.text;
+  final fullName = fullNameController.text.trim();
+  final email = emailController.text.trim();
+  final password = passwordController.text.trim();
 
-                      try {
-                        await ref
-                            .read(authNotifierProvider.notifier)
-                            .signUp(fullName, email, password);
+  // Regular expression for email validation
+  final emailRegex = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
 
-                        final token = await getToken(); // Retrieve token to verify storage
-                        print('Token after signup: $token'); // Debug statement
+  // Check if any fields are empty
+  if (fullName.isEmpty || email.isEmpty || password.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("All fields are required!")),
+    );
+    return; // Exit the function if any field is empty
+  }
 
-                        context.go('/user-details'); // Navigate to user details page after signup
-                      } catch (e) {
-                        print("Sign-up failed: $e");
-                      }
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.white),
-                    ),
+  // Check if the email is valid
+  if (!emailRegex.hasMatch(email)) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter a valid email address")),
+    );
+    return; // Exit the function if the email is invalid
+  }
+
+  // Check if the password length is at least 6 characters
+  if (password.length < 6) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Password must be at least 6 characters long")),
+    );
+    return; // Exit the function if the password is too short
+  }
+
+  try {
+    // Attempt to sign up using the provided full name, email, and password
+    await ref
+        .read(authNotifierProvider.notifier)
+        .signUp(fullName, email, password);
+
+    // If signUp is successful, retrieve the token to verify storage
+    final token = await getToken(); 
+    print('Token after signup: $token'); // Debug statement
+
+    // Navigate to the home page only if signup is successful
+    context.push('/home'); 
+  } catch (e) {
+    // If an exception occurs during sign up, print the error
+    print("Sign-up failed: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Sign-up failed: $e")),
+    );
+  }
+},
+child: Text(
+  'Sign Up',
+  style: TextStyle(color: Colors.white),
+),
                   ),
                 ],
               ),

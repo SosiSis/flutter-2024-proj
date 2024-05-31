@@ -9,7 +9,8 @@ import 'package:go_router/go_router.dart';
 class WithAccount extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final posts = ref.watch(postProvider);  // Watching the posts state managed by Riverpod
+    final posts = ref.watch(postProvider); 
+     // Watching the posts state managed by Riverpod
 
     return Scaffold(
       backgroundColor: Colors.blue[100],
@@ -26,14 +27,7 @@ class WithAccount extends ConsumerWidget {
             ),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: Icon(Icons.arrow_back),
-          iconSize: 30,
-          color: Colors.white,
-        ),
+        
       ),
       body: posts.isEmpty
           ? Center(child: CircularProgressIndicator())
