@@ -8,22 +8,24 @@ class NoAccount extends StatelessWidget {
     Item(
       imageUrl: 'https://www.jumio.com/app/uploads/2020/10/ID-US.png',
     ),
+
     Item(
       imageUrl:
-          'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
+      'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
     ),
     Item(
       imageUrl:
           'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
     ),
+
     Item(
-      imageUrl:
-          'https://th.bing.com/th/id/OIP.3l2nfzcHhMemSZooiH3B3AHaFj?rs=1&pid=ImgDetMain',
+      imageUrl: 'https://www.jumio.com/app/uploads/2020/10/ID-US.png',
     ),
+
     Item(
-      imageUrl:
-          'https://th.bing.com/th/id/OIP.3l2nfzcHhMemSZooiH3B3AHaFj?rs=1&pid=ImgDetMain',
+      imageUrl: 'https://www.jumio.com/app/uploads/2020/10/ID-US.png',
     ),
+
     Item(
       imageUrl:
           'https://th.bing.com/th/id/R.a23d6376839899eba3d7648990f34d8a?rik=HEsuS6DJXHM%2bCg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fkey%2fkey_PNG3378.png&ehk=Yu1s6FCMs9b5wv6I7JEhKSZmG0pzUInKvt17AOaXohQ%3d&risl=1&pid=ImgRaw&r=0',
